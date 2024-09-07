@@ -1,0 +1,69 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+
+%----- Configuración del estilo del documento------%
+\usepackage{epsfig,graphicx}
+\usepackage[left=2cm,right=2cm,top=1.8cm,bottom=2.3cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage{xcolor}
+\usepackage{soul}
+\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
+
+%Color bibi
+\definecolor{bibi}{RGB}{0,103,148}
+% Otros colores
+
+\usepackage{cite}
+\usepackage{multicol}
+\setlength{\columnsep}{1.5cm}
+\setlength{\columnseprule}{.5pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\textit{Página \thepage \hspace{1pt} de \pageref{LastPage}}}
+
+%------ Paquetes matemáticos básicos --------%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+%------ Encabezado -------- %
+\input{src/Encabezado/encabezado}
+\rule{17cm}{0.1mm}
+
+
+%------ Ejercicios -------- %
+\begin{enumerate}
+    \item \input{src/Ejercicios/ej1/1}
+    \item \input{src/Ejercicios/ej2/2}
+    \item \input{src/Ejercicios/ej3/3}
+    \item \input{src/Ejercicios/ej4/4}
+    \begin{enumerate}
+        \item \input{src/Ejercicios/ej4/4.1}
+        \item \input{src/Ejercicios/ej4/4.2}
+        \item \input{src/Ejercicios/ej4/4.3}
+    \end{enumerate}
+    \item \input{src/Ejercicios/ej5/5}
+    \item \input{src/Ejercicios/ej6/6}
+    \begin{enumerate}
+        \item \input{src/Ejercicios/ej6/6.1}
+        \item \input{src/Ejercicios/ej6/6.2}
+    \end{enumerate}
+    \item \input{src/Ejercicios/ej7/7}
+    \begin{enumerate}
+        \item \input{src/Ejercicios/ej7/7.1}
+        \item \input{src/Ejercicios/ej7/7.2}
+        \item \input{src/Ejercicios/ej7/7.3}
+    \end{enumerate}
+    \item \input{src/Ejercicios/ej8/8}
+    \begin{enumerate}
+        \item \input{src/Ejercicios/ej8/8.1}
+        \item \input{src/Ejercicios/ej8/8.2}
+        \item \input{src/Ejercicios/ej8/8.3}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

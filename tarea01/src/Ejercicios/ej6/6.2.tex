@@ -1,0 +1,23 @@
+\textbf{Prueba que cualquier algoritmo basado en comparaciones k-ordena un arreglo en $\Omega (n \, log k)$ comparaciones en el peor caso.}\\
+
+Primero que nada, con el anterior demostramos que existe un algoritmo que puede realizar la tarea en $O(n log(k))$ podemos verlo como que demostramos necesidad. Ahora necesitamos saber si teóricamente hay un algoritmo que pueda hacer menos de estas operaciones.\\
+
+\textcolor{bibi}{Con arboles}
+\begin{quote}
+    Para este razonamiento vamos a usar algo similar al visto en el ejercicio 1, es decir, ver cuantas posibilidades hay en total, para esto vamos a utilizar el coeficiente combinatorio:
+    \begin{align*}
+        \binom{n}{k} = \frac{n!}{k!(n-k)!}
+    \end{align*}
+
+    Osea que vamos a tomar n elementos y agarrar de k en k, esto nos da todas las posibles maneras en las que podríamos hacer esto, entonces de nuevo, un árbol de k niveles en donde cada nivel m tendrá $2^m$ nodos y donde cada hoja es resultado de la serie de comparaciones anteriores, tenemos lo siguiente:
+    \begin{align*}
+        \frac{n!}{k!(n-k)!} &\leq 2^m \\
+        log_2{\left(\frac{n!}{k!(n-k)!}\right)} &\leq log_2{2^m} \\
+        log_2{\left(\frac{n!}{k!(n-k)!}\right)} &\leq m \\\\
+        log_2{(n!)} - log_2{(k!(n-k)!)} &\leq m \\\\
+        O(nlog(n)) - (log_2{(k!)} + log_2{((n-k)!} ))&\leq m \\\\
+        O(nlog(n)) - (O(k log(k)) + O((n-k) log (n-k))) )&\leq m 
+    \end{align*}
+\end{quote}
+
+De aquí probablemente me doy cuenta de quizás mi acercamiento no fue el mejor pero la idea es que el árbol de comparaciones tiene una altura mayor o igual que $O(nlog(k))$.\\

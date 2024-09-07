@@ -1,0 +1,20 @@
+\textbf{Describe un algoritmo que k-ordene un arreglo de tamaño n en tiempo $O(n \, logk)$.}\\
+
+Para este problema vamos a utilizar una versión modificada de \textbf{Quick sort} pero además vamos a utilizar la versión que toma su pivote con la mediana en tiempo O(n) para asegurar la complejidad en el peor de los casos.\\
+
+\textcolor{bibi}{Quick sort}
+\begin{quote}
+    Lo primero que nos interesa es que dividamos el arreglo en $k$ bloques, pero como estamos usando quick sort modificado, lo primero es encontrar la mediana en $O(n)$, una vez encontrada esta mediana tenemos un buen pivote, podemos comenzar a dividir, en este paso vamos a tener 2 fracciones de n, probablemente no estén cerca de ser $n/2$ pero si sabemos que serán algo como $n/c_1$ y $n/c_2$.\\
+
+    En el siguiente paso, de nuevo buscamos la mediana en cada fracción en tiempo $O(n)$ y obtenemos de nuevo una fracción de n (asegurado por buscar la mediana); esto lo vamos a repetir hasta que el árbol llegue a arreglos de tamaño $n/k$ como lo estamos dividiendo en fracciones de $n$ entonces la altura del árbol binario implícito va a ser logarítmica, ahora vamos a checar cual es la altura de dicho árbol, en cada paso van a ser fracciones diferentes pero como queremos hacernos el calculo mas fácil en promedio podemos decir que se van a dividir en una fracción $1/c$ con c constante (en verdad c cambia en cada paso pero su valor es poco relevante). Entonces la altura del árbol la vamos a calcular de la siguiente manera, comenzamos con n elementos y luego vamos partiendo por nuestro c hasta que lleguemos a k grupos de tamaño $n/k$:
+    \begin{align*}
+        n, \frac{n}{c}, \frac{n}{c^2}, \dots, \frac{n}{c^m} = \frac{n}{k} \xrightarrow{} kn &= c^m * n \\
+        k &= c^m \\
+        log_c{\ k} &= log_c{\ c^m} \\
+        log_c{\ k} &= m
+    \end{align*}
+
+    Notemos que los valores de C en realidad no alteran mas que la base del logaritmo y además m representaba el nivel de profundidad del árbol, es decir tras m niveles del árbol que dividía en fracciones de n tendremos k grupos de tamaño aproximado $n/k$.\\
+
+    Entonces, sabemos que para cada nivel del árbol, buscaremos la mediana de las medianas que se puede hacer en $O(n)$ además de que vamos a recorrer todo el arreglo que también esta en $O(n)$; simplificando cada nivel hace una cantidad lineal de operaciones; después vimos que vamos a estar dividiendo (gracias a la mediana de las medianas) a n en una fracción de si misma por cada nivel y además dividiremos hasta que lleguemos a arreglos de tamaño $n/k$ de manera que tendremos $log_C(\ k)$ niveles, multiplicando estas complejidades tenemos que $O(n(log_C(\ k))) = O(n \ log(k))$, aunque hay que aclarar que las constantes ocultas probablemente son muy grandes especialmente estar calculando mediana de medianas en todos los pasos.\\
+\end{quote}

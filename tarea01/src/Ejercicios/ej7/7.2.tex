@@ -1,0 +1,10 @@
+\textbf{¿El algoritmo seguiría ordenando de manera correcta si reemplazamos $m=\lceil 2n /3 \rceil$ con $m=\lfloor 2n /3 \rfloor$? Justifica tu respuesta.}\\
+
+No jala, propongo un contraejemplo:
+\begin{align*}
+    A = [4,2,1,3]
+\end{align*}
+\textcolor{bibi}{Algoritmo}
+\begin{quote}
+    Iniciamos con m=2, dividimos en subarreglo [4,2], primera llamada recursiva al arreglo 1: entramos en el caso base pues n=2 y $A[0]>A[1]$ entonces intercambiamos [2,4]. y salimos de la primera llamada, ahora vamos a considerar el arreglo 2 que toma [1,3] y no entra a ninguna pues ya esta arreglado, ahora finalmente regresa al arreglo [2,4] y en este caso no cambio nada respecto a la primera vuelta así que acabamos con el arreglo: [2,4,1,3] que claramente no esta ordenado; lo que sucede es que en el algoritmo original había intersecciones entre lo que ordenábamos de manera que lo que movíamos en el paso intermedio lo podíamos recuperar con el ultimo paso, en este caso vemos que el paso intermedio no comparte elementos con ninguno de los otros 2 pasos y por tanto no puede haber intercambio de elementos entre estos.\\
+\end{quote}

@@ -1,0 +1,14 @@
+\textbf{Diseña un algoritmo eficiente que tome un arreglo A de n enteros positivos y obtenga el número de parejas de índices invertidos, donde una pareja de índices $(i,j)$ son invertidos si $i<j$ y $A[i] > A[j]$. Por ejemplo si $A=[1,4,7,2,8]$ entonces los índices $(1,3)$ son invertidos porque $1<3$ y $4=A[i]>A[3]=2$.}\\
+
+Para este problema la primer idea seria utilizar fuerza bruta, tomando para cada elemento los elementos mas chicos a su derecha pero esto nos va a usar $O(n^2)$ en tiempo.\\
+
+\textcolor{bibi}{Algoritmo eficiente:}
+\begin{quote}
+    Entonces vamos a "buscar el árbol", el profesor enseno un método usando Arboles Binarios Indexados pero creo que es mas sencillo lo siguiente; entonces en base a lo que sabemos, vamos a ver si podemos utilizar un algoritmo de Merge Sort ligeramente alterada. La idea es la siguiente, empezar por separar el arreglo de n elementos en n arreglos de 1 elemento, ahora sabemos que estos subarreglos por definición no tendrán ninguna pareja invertida. Ahora vamos a juntar arreglos en parejas para obtener arreglos de tamaño 2, para esto puede o no tener un solo par alternado después de verificar esto solo ordenamos el arreglo. \\
+    
+    Entonces llegamos al caso interesante, vamos a mezclar arreglos de tamaño 2 y si n es impar habrá un solo arreglo de tamaño 3, esto no afecta; comenzamos igual que Merge Sort, comparando mínimos, lo interesante aquí es que si encontramos la pareja invertida (i,j) con 'i' el índice que recorre el arreglo de la izquierda y 'j' el índice que recorre el arreglo de la derecha, entonces no solo contamos esta pareja si no también las parejas tipo (k,j) donde $k>i$ y $k<n_{izquierdo}$; por ejemplo con los arreglos (1,3,5,10) y (2,6,8,9) durante el proceso encontramos la pareja (3,2) entonces contamos esta mas las parejas (5,2) y (10,2) que sabemos van a ser pares invertidos (no necesitamos compararlo solo lo contamos) pues el arreglo izquierdo esta ordenado; además de esto solo ordenamos con Merge Sort y seguimos el proceso.\\
+    
+    Una parte interesante es que cuando tenemos los casos $[\ ]$ con $[b_{1},b_{2},...]$ o el caso $[a_{1},a_{2},a_{3}...]$ con $[\ ]$ a la hora de estar mezclando subarreglos por definición no habrá parejas invertidas y estas ya las contamos con el paso anterior, por lo que podemos pasar juntar el arreglo no vació con el final de nuestro arreglo resultante.
+\end{quote}
+
+Al terminar este proceso sabemos que habremos contado pares invertidos y además habremos ordenado todo el arreglo en $O(n \ log(n))$ pues usamos Merge Sort y durante los pasos no hicimos realmente mas que hacer sumas tipo $n_{izquierdo} - i$ además del algoritmo normal, aunque hay que resaltar que si ocupa $O(n)$ en espacio y la constante es relativamente alta.\\

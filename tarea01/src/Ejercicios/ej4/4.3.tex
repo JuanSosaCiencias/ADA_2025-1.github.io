@@ -1,0 +1,5 @@
+\textbf{¿Puedes mejorar el numero de comparaciones esperadas del inciso a? Explica.}\\
+
+Técnicamente podríamos usar algo como counting sort, fijándonos en vez del contenido que hay en los contenedores mas bien el contenido que queda en el barril de sake al llenar nuestro barril pero vamos a obviar esa respuesta.\\
+
+Supongo que como se trata de un problema de ordenación, la cota mínima es $O(n log(n))$ pero en este caso sin información previa, no veo forma de hacer algo como merge sort o un árbol, en cualquier paso no podemos descartar parejas pues no podemos saber el orden de nuestros contenedores de madera con respecto a ellos mismos o los vidrio, por tanto para ordenarlos respecto a ellos mismos y al mismo tiempo respecto al otro grupo se necesitaran $O(n^2)$ comparaciones.

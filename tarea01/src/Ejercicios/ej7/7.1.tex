@@ -1,0 +1,26 @@
+\textbf{Prueba que STUPIDSORT realmente arregla la entrada.}\\
+
+Lo vamos a probar por inducción sobre el tamaño del arreglo:\\
+
+\textcolor{bibi}{Casos base}
+\begin{quote}
+    \begin{itemize}
+        \item \textbf{$A=[]:$} No entra a ninguno de los 2 casos pero al final esta ordenado.
+        \item \textbf{$A=[a_1]:$} Igualmente no entra a ninguno de los 2 casos pero al final esta ordenado.
+        \item \textbf{$A=[a_1,a_2]$:} Ahora tenemos 2 casos:\\
+        \begin{itemize}
+            \item \textbf{Caso 1: $A[0] \leq A[1]$} entonces no entra a ninguno de los 2 casos pero al final ya esta arreglado.
+            \item \textbf{Caso 2: $A[0] > A[1]$} entonces intercambiamos estos 2 elementos y ya esta ordenado.\\
+        \end{itemize}
+    \end{itemize}
+\end{quote}
+
+\textcolor{bibi}{Hipótesis de Inducción}
+\begin{quote}
+    Suponemos que para un arreglo $A=[a_0,\dots,a_k]$ con $k<n$ el algoritmo de StupidSort visto ordena el arreglo.\\
+\end{quote}
+
+\textcolor{bibi}{Paso inductivo}
+\begin{quote}
+    Sea el arreglo $A=[a_0,\dots,a_n]$ veamos si lo ordena; comenzamos y vemos que no entra al caso uno pues $n>2$ entonces ahora $m=\lceil 2n/3 \rceil$ ahora hace llamadas recursivas con el algoritmo sobre $A=[a_0,\dots,a_{m-1}]$ entonces esto por H.I nos ordena el arreglo desde $a_{0}$ hasta $a_{m-1}$ pero puede ser que en el $n/3$ que no considero haya elementos no ordenados totalmente, así que hace otra llamada al algoritmo ahora ordenando básicamente desde el el primer tercio hasta el elemento, ahora esto cae en la H.I y esta parte esta parcialmente ordenada, pero ojo porque es probable que hayamos movido cosas que hagan que el primer tercio se desacomodo, entonces hacemos una tercera llamada en el primer tercio para reacomodar todo e igualmente cae en H.I. por tanto esta ordenado.\\
+\end{quote}

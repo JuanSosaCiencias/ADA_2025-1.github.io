@@ -1,0 +1,35 @@
+\textbf{¿Cuántas comparaciones son necesarias y suficientes para ordenar cualquier lista de cinco elementos? Justifique su respuesta.}\\
+
+\textcolor{bibi}{Demostrando suficiencia:}
+\begin{quote}
+    Primero vamos a resaltar que para un arreglo de 5 elementos hay $5!$ diferentes maneras de arreglar nuestro arreglo, por tanto sabemos que tras las comparaciones que hagamos deben satisfacer todas estas posibles combinaciones. \\
+    
+    Ahora, tomemos un árbol binario de k niveles donde cada nodo es una comparación diferente, sabemos que el árbol en el nivel k tendrá $2^k$ nodos; además sabemos que estas hojas son resultado de la serie de comparaciones que vienen de sus niveles superiores.\\
+    
+    Es así que si tomamos nuestros 5 elementos y comenzamos a comparar usando un árbol de decisiones, sabemos que tenemos la siguiente desigualdad para satisfacer todas las ordenaciones:
+    \begin{align*}
+        5! &\leq 2^k =\\
+        log_2(5!) &\leq log_2(2^k) =\\
+        log_2(120) &\leq k \ log_2(2) \approx \\
+        6.9068 &\leq k 
+    \end{align*}
+    Y como $k$ es un numero natural pues es una cantidad de niveles sabemos que $7 \leq k$ es así que al menos necesitamos 7 comparaciones para satisfacer todas las posibles ordenaciones.\\
+\end{quote}
+
+\textcolor{bibi}{Demostrando necesidad:}
+\begin{quote}
+    Inicialmente en esta demostración intente usar Merge Sort pero es algo que no recomiendo pues este algoritmo en verdad puede tomar 8 comparaciones o 6 dependiendo del arreglo, por ejemplo el arreglo $[1,5,2,3,4]$ le toma al algoritmo 8 comparaciones.\\
+
+    Es entonces que en realidad vamos a utilizar un algoritmo hecho específicamente para n=5, lo cual es un código muy feo pero bueno aquí la idea:\\
+    \begin{itemize}
+        \item \textbf{Paso 1:} Comparar y organizar los primeros 2 pares (a,b y c,d) aquí usamos 2 comparaciones.\\
+        
+        \item \textbf{Paso 2:} Comparar los elementos mas grandes de ambos arreglos, de manera que el arreglo con el elemento mas grande de los 4 este después algo como (a,b,c,d) si 'd' es mas grande que 'b', esto toma 1 comparación.\\
+        
+        \item \textbf{Paso 3:}  Este paso es un poquito mas truculento, tenemos el orden total de [a,b,d]  con algo de información de 'c', ahora la idea es que queremos saber donde poner e pero tiene que usar a lo mas 2 comparaciones, entonces sabemos que empezar desde el principio es mala idea; vamos a tomar nuestro conjunto ordenado (a,b,d) y vamos a comparar a 'e' con 'b', si es mas grande entonces compararemos con 'd' y dependiendo de la respuesta lo ponemos al frente (a,b,d,e) o atrás (a,b,e,d) lo mismo si es mas chico que 'b', comparamos con 'a' y lo ponemos al frente (a,e,b,d) o atrás (e,a,b,d).\\
+        
+        \item \textbf{Paso 4:} Finalmente nos quedan 2 comparaciones para meter a 'c', afortunadamente, ya tenemos información relevante, sabemos por el paso uno que $c<d$, por tanto en el peor de los casos tenemos que comparar 2 veces como en el caso anterior, igualmente tenemos que comparar entonces con los 3 primeros elementos del arreglo, digamos ([a,e,b],d) comparamos con el de en medio de los tres digamos 'e', si es mas chico comparamos con 'a' y lo ponemos adelante  (a,c,e,b,d) o atrás (c,a,e,b,d) o en el caso de ser mas grande que 'e' comparamos con el de adelante digamos 'b' y lo ponemos adelante (a,e,b,c,d) o atrás (a,e,c,b,d). 
+    \end{itemize}
+
+    Una vez terminado este algoritmo tendremos el arreglo ordenado y en el peor de los casos usamos 7 comparaciones.\\
+\end{quote}

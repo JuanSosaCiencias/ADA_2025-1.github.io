@@ -1,0 +1,30 @@
+\textbf{Diseña un algoritmo que encuentre el segundo elemento mas pequeño y el segundo elemento mas grande entre un conjunto de n elementos usando a lo mas $\frac{3n}{2} + o(n)$ comparaciones.}\\
+
+De nuevo vemos que usar fuerza bruta no es una alternativa viable pues tendríamos que ir elemento a elemento preguntándonos si es mas grande que el segundo mas grande, después si lo es entonces preguntar si es mas grande que el máximo y si la primera era no entonces preguntar si es mas pequeño que el segundo mínimo y finalmente si es el mínimo total; esto toma algo así como 3n comparaciones en el peor de los casos.\\
+
+\textcolor{bibi}{Usando Heaps:}
+\begin{quote}
+    La idea de este algoritmo es utilizar espacio y otras operaciones que no sean comparaciones para bajar la cantidad de estas, así que siguiendo este principio comenzamos por dividir el arreglo en parejas, esto toma 0 comparaciones; un punto importante es que las comparaciones que utilizamos en los heaps para obtener la raíz son $n-1$,\\
+
+    Ahora con esta base vamos a crear 2 estructuras una en donde van a competir para ver quien es el mínimo y otra para ver quien es el máximo, pero notemos que en realidad solo vamos a realizar una comparación para llevar un elemento a cualquiera de estas en el primer turno, es así que comparamos por parejas cada pareja usando $n/2$ comparaciones y conseguimos los primeros "ganadores" y "perdedores", notemos que cada heap tiene $n/2$ elementos en su penúltimo nivel y si el arreglo original era impar nos sobra un elemento pero no lo comparamos aun con nadie.\\
+
+    Entonces ahora podemos razonar que la cantidad de comparaciones para terminar de subir los elementos en ambos arboles es $n/2 - 1$, la primera es viendo que tenemos un submax heap y submin heap, es decir dentro de nuestros heaps, por ejemplo, en nuestro max heap, sucede que en el punto anterior ya subimos el primer nivel y ahora tenemos un subárbol con $n/2$ elementos que pueden ser máximo (lo mismo pasa con el mínimo) y como establecí al principio de la solución un max heap o un min heap toma $n-1$ comparaciones para elegir su ganador, entonces cuando $n_{subarbol}=n/2 \xrightarrow{}$ tardamos $2(n/2-1)=n-2$ comparaciones en este paso.\\
+    Ahora si eligen no creer o no les hace sentido vamos a razonarlo de otra manera, con series; sabemos que cada uno de nuestros arboles tiene su nivel de hasta abajo lleno de los elementos iniciales y su siguiente nivel lleno de "ganadores" o en otro caso "perdedores" por el paso anterior, vamos a ver el caso de los "ganadores" y el de los "perdedores" sera análogo pero pasando el menor; comenzando con los "ganadores" comparamos una vez cada pareja de nuestro nivel y eso tarda $\frac{n}{2/2} = n/4$ comparaciones, el siguiente nivel por lógica tardara $n/8$ comparaciones y dado un n muy grande podemos ver a donde convergerá esta suma usando series:
+    \begin{align*}
+        \frac{n}{4} + \frac{n}{8} + \frac{n}{16} + \dots &= \sum_{k=0}^{\infty} \frac{n}{4} \ \left(\frac{1}{2}\right)^k
+    \end{align*}
+
+    Esta es una serie geométrica "infinita" (no nos vamos a complicar la vida) y converge si $|r|<1$, en este caso $|r|=|\frac{1}{2}|$ y entonces sabemos que la formula converge a:
+    \begin{align*}
+        S = \frac{\frac{n}{4}}{1-\frac{1}{2}} = \frac{\frac{n}{4}}{\frac{1}{2}} = \frac{2 \ n}{4} = \frac{n}{2}
+    \end{align*}
+    Podrían preguntar porque es que aquí no restamos el -1 y es que la serie no para mientras que nosotros sabemos que podemos parar cuando $n/2^k > 1$ puesto que ya no podemos seguir comparando.\\
+
+    Entonces, ahora si convencidos espero, podemos concluir que tras el primer paso, construir ambos arboles nos toma algo de la forma $n-2$ mas las $n/2$ comparaciones del primer paso llevamos $\frac{3n}{2}-2$ comparaciones y solo tenemos 2 arboles.\\
+
+    Pero ojo porque hasta ahora solo consideramos arreglos pares, si el arreglo fuera de tamaño impar, el paso uno deja ese elemento solo, basta con comparar este elemento con el máximo del árbol de máximos y en el peor de los casos también con el mínimo del árbol de mínimos, así tomando 2 comparaciones y llevándonos a $\frac{3n}{2}$ comparaciones hasta ahora.\\
+
+    Notemos que, $n \not \in o(n)$ pero $log(n) \in o(n)$; entonces vamos a usar este hecho y el que ya tengamos 2 arbolitos ya hechos para encontrar el 2ndo máximo y 2ndo mínimo; vamos a ver igualmente el caso con el máximo pero el mínimo es simétrico pero con el menor de. Sabemos que el segundo máximo tiene que ser alguno de los que perdió directamente contra el máximo (porque si no perdió contra otro elemento y este seria potencialmente el segundo) por tanto hay que buscar quienes fueron sus rivales, en el peor de los casos, el árbol era impar entonces podemos comenzar nuestra búsqueda por el ultimo elemento, si no es, entonces comparamos por nivel, sabemos que un árbol binario completo como lo es el max heap, tiene una altura de $log(n)$ y sabemos que como es binario y el máximo subió, tuvo que ganarle a un contrincante por nivel menos su propio nivel esto seria $log(n)-1$ comparaciones pero recordando el caso del arreglo impar nos regresa esa comparación.\\
+
+    Finalmente recordando que son 2 arboles tenemos que sumarle 2 veces esta ultima cantidad de comparaciones para llegar a que en el peor de los casos, para encontrar el segundo mayor y el segundo menor necesitamos $\frac{3n}{2} + 2log(n)$ comparaciones.\\
+\end{quote}

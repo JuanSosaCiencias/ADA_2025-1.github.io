@@ -1,0 +1,46 @@
+\textbf{Supongamos que tenemos que ordenar una lista L de n enteros cuyos valores están entre 1 y m. Pruebe que si m es $O(n)$ entonces los elementos de L pueden ser ordenados en tiempo lineal. ¿Que pasa si m es de $O(n^2)$? ¿Se puede realizar en tiempo lineal? ¿Por que?}\\
+
+Vamos a comenzar probando lo primero, que ordenar n elementos con valores entre 1 y m con m $\in O(n)$ $\in O(n)$, para ello usaremos \textbf{Counting Sort}.\\
+
+\textcolor{bibi}{Demostración:}
+\begin{quote}
+    Primero que nada hay que destacar que counting sort es un algoritmo que ordena pero no es basado en comparaciones, por tanto no esta acotado inferiormente por $O(n \ log(n))$; la idea de este algoritmo simplemente es contar las apariciones de cada uno de los elementos del arreglo original y escribirlos en un arreglo auxiliar de tamaño m, la cosa importante es que, al final, para ordenar el arreglo hace falta recorrer todo el arreglo de tamaño m, por tanto es importante que m no sea muy grande, veámoslo mas a detalle.\\
+
+    Comenzamos creando un arreglo auxiliar $B=[b_0,\dots,b_{m-1}]$ (hacemos m-1 porque el arreglo inicia en el índice 0 pero el problema nos da números que empiezan en el 1, vamos a mapear estos elementos hacia abajo) entonces como ya dijimos va a recorrer el arreglo digamos $A=[a_0,\dots,a_n]$ y por cada entrada $a_{i}=j$ tenemos que $B[j-1]+=1$ o dicho de otra forma vamos contando uno por uno en el arreglo auxiliar la cantidad de veces que sale cada elemento (importante destacar que $j-1 \leq m-1$ porque j sale de A y A solo tiene valores hasta m). Es claro que esto toma tiempo lineal pues recorremos el arreglo de n elementos y además sumamos 1, n veces en el arreglo B (insertar en arreglos se hace en tiempo constante); entonces podemos decir que hasta ahora crear el arreglo B y contar la cantidad de elementos nos ha tomado algo así como $n+n=2n$ esto independientemente de la forma de m y n.\\
+
+    Pero aun no tenemos el arreglo ordenado, solo tenemos un arreglo $B=[b_0,\dots,b_{m-1}]$, entonces para conseguir el arreglo ordenado vamos a sobrescribir $A$ usando $B$, recorremos $B$ y para cada $b_i=k$ ponemos k veces el elemento $i+1$ en el arreglo A; esta vez solo recorrimos un arreglo B y reescribimos n elementos de regreso en el arreglo A, esto por tanto toma algo así como $m+n$ (reescribir elementos en A es constante).\\
+
+    Es así que nuestro algoritmo usando counting sort, toma algo del estilo $2n+m+n=3n+m$ (solo si contamos cada mini operación que hagamos como sumar o reescribir en un arreglo pero podría simplificar a $O(n+m)$) entonces es claro que dependemos de la forma de m para determinar la complejidad, en este caso, como $m = O(n) = c*n$ entonces nuestra complejidad es de $(3n+c*n) \in O(n)$.
+\end{quote}
+
+Ahora toca preguntarnos, ¿Que pasa si m es de $O(n^2)$? ¿Se puede realizar en tiempo lineal? ¿Por que?, afortunadamente podemos usar la mayor parte del desarrollo anterior:\\
+
+\textcolor{bibi}{¿Que pasa si $m = O(n^2)$?}
+\begin{quote}
+    Bueno, retomando nuestro procedimiento anterior, sabíamos que el algoritmo propuesto tenia una complejidad como $3n+m$ pero ahora tenemos que $m = O(n^2) = c * n^2$ por lo que tenemos que nuestro procedimiento tomara $3n+c*n^2 \not \in O(n)$ por tanto al menos usando solo counting sort no va a salir.\\
+
+    Entonces en este caso vamos a usar \textbf{radix sort}; algo importante es que radix sort va a usar nuestro counting sort, pero como lo describimos no es "estable" es decir no ordena los elementos por como aparecieron, esto es crucial para radix sort y la única diferencia para arreglar esto es utilizar otro arreglo auxiliar para ordenar digamos un arreglo $C$ de manera que no sobrescribimos $A$ si no que escribimos en $C$ el arreglo ordenado en el orden que aparece en $A$.\\
+
+    En cualquier caso, radix sort funciona utilizando como subrutina este counting sort estable;la idea es, empezando por los dígitos menos significativos de cada numero n aplicar counting sort para ordenarlos según ese primer dígito, después, es solo seguir por cada dígito hasta llegar al mas significativo; como sabemos que cada dígito que ordenemos va del 0 al 9 entonces tenemos un $k=O(n)$ y entonces cada uno de estos counting sort estable por dígito tendrá una complejidad aproximada de $n+k=n+c*n \in O(n)$ y digamos que tomamos la cantidad de dígitos del numero m y lo llamamos $d$ (m tiene la máxima cantidad de dígitos), entonces este algoritmo tomara para ordenar algo del estilo $O(d(n+k))$, porque realizamos $d$ veces el counting sort, (el demostrar que el algoritmo radix sort ordena se puede ver en el Cormen segunda edición paginas 172 y 173) como ya mencionamos esta complejidad se puede ver también como $O(d(n))$ porque los counting sort tienen un $k \in O(n)$.\\
+
+    Ahora para ver que es lineal es suficiente con ver que $d$ no sea algo lineal; recordemos que $d$ no es mas que la cantidad de dígitos que tiene m, entonces vamos a proceder usando una formula medio mágica:
+    \begin{align*}
+        Numero \ de \ digitos \ = \lfloor log_{\ b}(m)\rfloor +1
+    \end{align*}
+    con b la base del numero m (en este caso b es 10) y la función piso redondea el numero al entero abajo mas cercano. (la demostración de que funciona se ve o en calculo o teoría de números pero en este caso trust me bro). Sustituyendo nuestros valores tenemos una complejidad algo asi como de $O((\lfloor log_{\ 10}(m)\rfloor +1)(n))$ esto, quitando la función piso, viendo que el 1 no nos mueve mucho y viendo que la base del logaritmo es constante tenemos una complejidad mas como $O(n \ log(m))$, además, sabemos que $m=O(n^2)=c*n^2$ entonces nuestra complejidad es $O(n \ log(c*n^2)) = O(n * 2*log(n)) = O(n \ log(n))$ de cualquier manera vemos que no nos da tiempo lineal y hasta ahora.\\
+
+    Pero vamos a probar cambio de base del logaritmo (cambio de base es una operación que se puede hacer en tiempo constante pues no depende del tamaño de n):
+    \begin{align*}
+        log_b(m) = \frac{log_n(m)}{log_n(b)}
+    \end{align*}
+
+    Entonces podemos reescribir nuestra complejidad como:
+    \begin{align*}
+        O(n \ log_{\ 10}(m)) &\xrightarrow{} O\left(n \ \frac{log_n(m)}{log_n(10)}\right) \\\\
+        &= O\left(n \ \frac{log_n(n^2)}{log_n(10)}\right) \\\\
+        &= O\left(n \ 2\frac{1}{log_n(10)}\right) \\\\
+        &= O\left(2n \right) = O(n)
+    \end{align*}
+\end{quote}
+
+Esto nos lleva a que efectivamente podemos ordenar en tiempo lineal. (tomar en cuenta que el logaritmo de un numero constante es constante y por eso se puede eliminar en la notación asintótica, igualmente con el c que multiplicaba a $n^2$ en m).\\
