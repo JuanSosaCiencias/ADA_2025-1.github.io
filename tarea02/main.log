@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.9.2)  7 SEP 2024 17:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.9.2)  7 SEP 2024 19:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -376,28 +376,80 @@ Overfull \hbox (0.21284pt too wide) in paragraph at lines 35--36
  []
 
 (./src/Ejercicios/ej1/1.tex
-Underfull \hbox (badness 10000) in paragraph at lines 1--2
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
-) (./src/Ejercicios/ej2/2.tex) (./src/Ejercicios/ej2/2.1.tex) (./src/Ejercicios/ej2/2.2.tex) (./src/Ejercicios/ej3/3.tex) (./src/Ejercicios/ej4/4.tex) (./src/Ejercicios/ej4/4.1.tex) (./src/Ejercicios/ej4/4.2.tex) (./src/Ejercicios/ej5/5.tex) (./src/Ejercicios/ej6/6.tex) (./src/Ejercicios/ej7/7.tex) (./src/Ejercicios/ej8/8.tex) (./src/Ejercicios/ej8/8.1.tex) (./src/Ejercicios/ej8/8.2.tex) 
-AED: lastpage setting LastPage
+) (./src/Ejercicios/ej2/2.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 3--42
+
+ []
+
+(./src/Ejercicios/ej2/2.1.tex) (./src/Ejercicios/ej2/2.2.tex) (./src/Ejercicios/ej3/3.tex) (./src/Ejercicios/ej4/4.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 4--48
+
+ []
+
+(./src/Ejercicios/ej4/4.1.tex) (./src/Ejercicios/ej4/4.2.tex) (./src/Ejercicios/ej5/5.tex)
+Overfull \hbox (24.15195pt too wide) in paragraph at lines 8--53
+\OT1/cmr/m/n/10.95 [1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 4\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 5\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 7\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 10\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 14\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 15\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 16\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 19\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 20\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 25]$ \OT1/cmr/bx/n/10.95 y de-spu^^Ses de una rotaci^^Son $\OML/cmm/m/it/10.95 A \OT1/cmr/m/n/10.95 = [25\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 4\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 5\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 7\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 10\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 14\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 15\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 16\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 19\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 20]$\OT1/cmr/bx/n/10.95 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--53
+
+ []
+
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./src/Img/Logo_UNAM.png> <./src/Img/Logo_FC.png>] (./main.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./src/Img/Logo_UNAM.png> <./src/Img/Logo_FC.png>] (./src/Ejercicios/ej6/6.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 22--54
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--54
+
+ []
+
+(./src/Ejercicios/ej7/7.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 10--55
+
+ []
+
+(./src/Ejercicios/ej8/8.tex
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 10.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 10.
+) (./src/Ejercicios/ej8/8.1.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 2--58
+
+ []
+
+[2] (./src/Ejercicios/ej8/8.2.tex)
+Overfull \hbox (3.2619pt too wide) in paragraph at lines 3--59
+[]\OT1/cmr/bx/n/10.95 Supongamos que $\OML/cmm/m/it/10.95 m$ \OT1/cmr/bx/n/10.95 no es con-stante. De-scriba un al-go-ritmo de com-ple-ji-dad $\OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 n log n\OT1/cmr/m/n/10.95 )$
+ []
+
+
+AED: lastpage setting LastPage
+[3] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 4563 strings out of 476091
- 68419 string characters out of 5794082
- 1856330 words of memory out of 5000000
- 24838 multiletter control sequences out of 15000+600000
- 518209 words of font info for 54 fonts, out of 8000000 for 9000
+ 4596 strings out of 476091
+ 68912 string characters out of 5794082
+ 1864330 words of memory out of 5000000
+ 24863 multiletter control sequences out of 15000+600000
+ 519785 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,11n,76p,355b,303s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (1 page, 664530 bytes).
+ 72i,11n,76p,355b,472s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on main.pdf (3 pages, 727075 bytes).
 PDF statistics:
- 38 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
