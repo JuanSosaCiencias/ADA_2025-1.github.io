@@ -1,6 +1,94 @@
 \textbf{Sea $S$ un conjunto de $n$ puntos en el plano y en posici\'on general, tales que $\forall (x_i, y_i) \in S$ se tiene que $x_i,y_i \in \mathbb{N}$ y $x_i, y_i \in [0, \dots, n^2]$. Describe un algoritmo que encuentre el cierre convexo de $S$ es tiempo $O(n)$.
 }\vspace{.2cm}
 
-\textcolor{bibi}{}
+Lo primero a notar es que no podemos aplicar metodos como el de Graham o el de Jarvis, ya que estos tienen una complejidad de $O(n \log n)$ y en este caso se pide un algoritmo de complejidad $O(n)$.\vspace{.3cm}
+
+\textcolor{bibi}{Graham Scan + Radix Sort}\vspace{.2cm}
 \begin{quote}
+    Como bien dice el titulo, vamos a usar el algoritmo de Graham Scan para encontrar el cierre convexo de $S$. Ademas, vamos a usar el algoritmo de Radix Sort para ordenar los puntos de $S$ en tiempo $O(n)$. A continuaci\'on se describe el algoritmo:\vspace{.2cm}
+
+    Primero, vamos a buscar el mas chico en la coordenada x, lo vamos a llamar $p_0$. Luego, vamos a ordenar los puntos de $S$ en orden decreciente de angulo abarcado entre el segmento que une a $p_0$ con el punto y el eje x, se puede utilizar la cotangente para agilizar este proceso, ademas por la reestriccion de que los puntos estan en el rango $[0, \dots, n^2]$ podemos usar Radix Sort para ordenar los puntos en tiempo $O(n)$.\vspace{.2cm}
+
+    Eso nos va a dar algo de este estilo:\vspace{.2cm}
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.4\textwidth}{!}{%
+            \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \draw  (6.25,10.25) circle (0.25cm);
+            \draw  (6.25,9) circle (0.25cm);
+            \draw [->, >=Stealth] (3.75,7.75) -- (3.75,14);
+            \draw [->, >=Stealth] (3.75,7.75) -- (12.5,7.75);
+            \node [font=\LARGE] at (12.5,7.25) {x};
+            \node [font=\LARGE] at (3.25,14) {y};
+            \node [font=\LARGE] at (6,8.5) {$p_0$};
+            \draw  (7.5,8.25) circle (0.25cm);
+            \draw  (8.75,9.5) circle (0.25cm);
+            \draw  (9.75,8.75) circle (0.25cm);
+            \draw  (11,12) circle (0.25cm);
+            \draw  (8.75,11.75) circle (0.25cm);
+            \draw  (7.25,11.5) circle (0.25cm);
+            \draw [dashed] (6.25,9) -- (6.25,10.25);
+            \draw [dashed] (6.25,9) -- (7.5,8.25);
+            \draw [dashed] (6.25,9) -- (8.75,9.5);
+            \draw [dashed] (6.25,9) -- (7.25,11.5);
+            \draw [dashed] (6.25,9) -- (8.75,11.75);
+            \draw [dashed] (6.25,9) -- (11,12);
+            \draw [dashed] (6.25,9) -- (9.75,8.75);
+            \end{circuitikz}
+            }%
+            
+            \label{fig:my_label}
+            \end{figure}
+    \end{center}
+
+    Entonces buscar el mas chico en una coordenada nos tomo $O(n)$ y ordenar los puntos nos tomo $O(n)$, por lo que hasta ahora llevamos $O(n)$. Ahora, vamos a aplicar el algoritmo de Graham Scan para encontrar el cierre convexo de $S$. \vspace{.2cm}
+
+    Ahora Graham va a tomar una pila, meter a $p_0$ y a $p_1$, luego va a ir tomando los puntos de $S$ de a uno y va a ir viendo si el giro que forma el punto actual con los dos ultimos puntos de la pila es a la izquierda o a la derecha. Si el movimiento es a la derecha entonces continua y mete a el siguiente punto en la pila, si el movimiento es a la izquierda entonces saca el ultimo punto de la pila y vuelve a hacer el giro con el nuevo ultimo punto de la pila. Algo asi: \vspace{.2cm}
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.4\textwidth}{!}{%
+            \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \draw  (6.25,10.25) circle (0.25cm);
+            \draw  (6.25,9) circle (0.25cm);
+            \draw [->, >=Stealth] (3.75,7.75) -- (3.75,14);
+            \draw [->, >=Stealth] (3.75,7.75) -- (12.5,7.75);
+            \node [font=\LARGE] at (12.5,7.25) {x};
+            \node [font=\LARGE] at (3.25,14) {y};
+            \node [font=\LARGE] at (6,8.5) {$p_0$};
+            \draw  (7.5,8.25) circle (0.25cm);
+            \draw  (8.75,9.5) circle (0.25cm);
+            \draw  (9.75,8.75) circle (0.25cm);
+            \draw  (11,12) circle (0.25cm);
+            \draw  (8.75,11.75) circle (0.25cm);
+            \draw  (7.25,11.5) circle (0.25cm);
+            \node [font=\LARGE] at (5.5,11) {$p_1$};
+            \node [font=\LARGE] at (7.25,12.5) {$p_2$};
+            \node [font=\LARGE] at (8.75,12.75) {$p_3$};
+            \node [font=\LARGE] at (11.25,13) {$p_4$};
+            \node [font=\LARGE] at (8.75,10.5) {$p_5$};
+            \node [font=\LARGE] at (10.5,8.75) {$p_6$};
+            \node [font=\LARGE] at (8.5,8) {$p_7$};
+            \draw [short] (6.25,9) -- (6.25,10.25);
+            \draw [short] (6.25,10.25) -- (7.25,11.5);
+            \draw [short] (7.25,11.5) -- (8.75,11.75);
+            \draw [short] (8.75,11.75) -- (11,12);
+            \draw [ color={rgb,255:red,255; green,0; blue,0}, short] (11,12) -- (8.75,9.5);
+            \draw [ color={rgb,255:red,255; green,0; blue,0}, short] (8.75,9.5) -- (9.75,8.75);
+            \draw [short] (11,12) -- (9.75,8.75);
+            \draw [short] (9.5,10.25) .. controls (9.75,9.75) and (9.75,9.5) .. (9.25,9.25);
+            \end{circuitikz}
+            }%
+            
+            \label{fig:my_label}
+        \end{figure}
+    \end{center}
+
+    Para calcular si un giro es a la izquierda o a la derecha, se puede usar el producto vectorial, que tiene una complejidad de $O(1)$ ($(x2-x1)(y3-y1)-(y2-y1)(x3-x1)$ si es 0 entonces es colineal (este caso no pasa en posicion general), si es positivo es a la izquierda y si es negativo es a la derecha). \vspace{.2cm}
+
+    Acabamos cuando regresamos a $p_0$ y la pila tiene $n$ elementos, por lo que la complejidad de Graham Scan es $O(n)$ (porque solo procesa en la pila el elemento una vez). Por lo tanto, la complejidad total del algoritmo es $O(n)$. 
 \end{quote}
+\qed
