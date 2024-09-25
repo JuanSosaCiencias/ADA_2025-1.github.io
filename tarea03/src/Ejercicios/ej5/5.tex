@@ -86,6 +86,7 @@ Lo primero a notar es que no podemos aplicar metodos como el de Graham o el de J
             \label{fig:Graham2}
         \end{figure}
     \end{center}
+    \vspace{-.6cm}
     Para calcular si un giro es a la izquierda o a la derecha, se puede usar el producto vectorial, que tiene una complejidad de $O(1)$ ($(x2-x1)(y3-y1)-(y2-y1)(x3-x1)$ si es 0 entonces es colineal (este caso no pasa en posicion general), si es positivo es a la izquierda y si es negativo es a la derecha). \vspace{.2cm}
 
     Acabamos cuando regresamos a $p_0$ y la pila tiene $n$ elementos, por lo que la complejidad de Graham Scan es $O(n)$ (porque solo procesa en la pila el elemento una vez). Por lo tanto, la complejidad total del algoritmo es $O(n)$. 
