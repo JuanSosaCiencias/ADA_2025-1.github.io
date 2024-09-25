@@ -1,5 +1,68 @@
 \textbf{Dise\~na un algoritmo de programaci\'on din\'amica eficiente que determine si $Z$ es un \textit{shuffle} de $X$ y $Y$. \textit{Hint}: Los valores de la matriz de programaci\'on din\'amica que construyas, podr\'ian ser valores booleanos y no num\'ericos.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+El problema se parece bastante a la subcadena creciente mas grande.
+La idea es usar una matriz de $|X|+1$ filas y $|Y|+1$ columnas, 
+donde la celda $(i,j)$ indica si los primeros $i+j$ caracteres de $Z$
+son un \textit{shuffle} de los primeros $j$ caracteres de $X$ y 
+los primeros $i$ caracteres de $Y$. (podemos cambiar cual es quien pero asi lo hice) \vspace{.2cm}
+    
+\textcolor{bibi}{Usando matriz y programaci\'on din\'amica:}\vspace{.2cm}
 \begin{quote}
+
+    Podemos empezar verificando que $|X|+|Y|=|Z|$, si no es asi entonces
+    no puede ser un \textit{shuffle} de $X$ y $Y$. \vspace{.2cm}
+
+    Tenemos entonces que nuestra matriz se va a ver algo as\'i:
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllll}
+                &                              &                       & $x_0$                 & $x_1$                 & $\dots$               & $x_n$                 \\
+                & i/j                          & 0                     & 1                     & 1                     & $\dots$               & n                     \\ \cline{3-7} 
+                & \multicolumn{1}{l|}{0}       & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
+        $y_0$   & \multicolumn{1}{l|}{1}       & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
+        $y_1$   & \multicolumn{1}{l|}{2}       & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
+        $\dots$ & \multicolumn{1}{l|}{$\dots$} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
+        $y_m$   & \multicolumn{1}{l|}{m}       & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
+        \end{tabular}
+    \end{table}
+
+    Ahora vamos a ver como llenarla, primero por la definición que hicimos, el indice
+    (i,j) sera 1 pues los primeros 0+0 caracteres de Z siempre seran shuffle de los primeros
+    0 caracteres de X y los primeros 0 caracteres de Y. \vspace{.2cm}
+
+    Para la primera fila, hay que checar que los primeros $j$ caracteres de $X$ sean iguales
+    a los primeros $j$ caracteres de $Z$, si es asi, entonces la celda $(0,j)$ sera 1, si no
+    entonces sera 0; para checar esto podemos checar si el caracter j es igual en ambos y despues
+    checar si a la izquierda ya tenemos un 1. ( esto es equivalente a: M[0][j]=M[0][j-1] AND X[j-1]==Z[j-1]
+    tenemos que restar 1 porque las cadenas tienen indice en 0 pero tambien lo puedes entender con cantidad
+    de caracteres) \vspace{.2cm}
+
+    Para la primera columna, es lo mismo que la fila pero con $Y$ y $Z$, esto se puede entender como
+    M[i][0]=M[i-1][0] AND Y[i-1]==Z[i-1]. \vspace{.2cm}
+
+    Ahora para el caso de en medio hay que checar que los primeros $i+j$ caracteres de $Z$ sean shuffle
+    de los primeros $j$ caracteres de $X$ y los primeros $i$ caracteres de $Y$, esto se puede entender
+    como M[i][j]=M[i-1][j] AND Y[i-1]==Z[i+j-1] OR M[i][j-1] AND X[j-1]==Z[i+j-1]. \vspace{.2cm}
+
+    De manera general nuestra funcion quedaria algo asi:
+    \scriptsize
+    \begin{align*}
+        M[i][j]=\begin{cases}
+            1 & \text{si } i=0 \text{ y } j=0 \\
+            (M[i-1][j] \text{ AND } Y[i-1]==Z[i+j-1]) \text{ OR } (M[i][j-1] \text{ AND } X[j-1]==Z[i+j-1]) & \text{si } i>0 \text{ y } j>0 \\
+        \end{cases}
+    \end{align*}
+
+    Al final sabremos si $Z$ es un \textit{shuffle} de $X$ y $Y$ si $M[|Y|][|X|]=1$, ademas el camino
+    para ir de la celda $(|Y|,|X|)$ a la celda $(0,0)$ nos dira cuales son los caracteres que se usaron. \vspace{.2cm}
+
+    Este algoritmo tiene complejidad $O(|X|*|Y|)$ y usa $O(|X|*|Y|)$ memoria, esto pues la matriz es de tamaño
+    $(|X|+1)*(|Y|+1)$ y se llena en cada celda una vez tomando $O(1)$ tiempo (checar arriba y abajo, tomar un indice de 
+    una cadena y compararlo con el indice en otra cadena que puede ser O(1)). \vspace{.2cm}
+
+    Para entender mejor checar el ejemplo de arriba.
 \end{quote}
+
+
+\newpage
