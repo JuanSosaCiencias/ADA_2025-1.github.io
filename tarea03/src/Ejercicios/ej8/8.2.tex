@@ -18,7 +18,7 @@ los primeros $i$ caracteres de $Y$. (podemos cambiar cual es quien pero asi lo h
         \centering
         \begin{tabular}{lllllll}
                 &                              &                       & $x_0$                 & $x_1$                 & $\dots$               & $x_n$                 \\
-                & i/j                          & 0                     & 1                     & 1                     & $\dots$               & n                     \\ \cline{3-7} 
+                & i/j                          & 0                     & 1                     & 2                     & $\dots$               & n                     \\ \cline{3-7} 
                 & \multicolumn{1}{l|}{0}       & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
         $y_0$   & \multicolumn{1}{l|}{1}       & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
         $y_1$   & \multicolumn{1}{l|}{2}       & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{3-7} 
@@ -46,13 +46,13 @@ los primeros $i$ caracteres de $Y$. (podemos cambiar cual es quien pero asi lo h
     como M[i][j]=M[i-1][j] AND Y[i-1]==Z[i+j-1] OR M[i][j-1] AND X[j-1]==Z[i+j-1]. \vspace{.2cm}
 
     De manera general nuestra funcion quedaria algo asi:
-    \scriptsize
     \begin{align*}
         M[i][j]=\begin{cases}
-            1 & \text{si } i=0 \text{ y } j=0 \\
-            (M[i-1][j] \text{ AND } Y[i-1]==Z[i+j-1]) \text{ OR } (M[i][j-1] \text{ AND } X[j-1]==Z[i+j-1]) & \text{si } i>0 \text{ y } j>0 \\
+            1 & \text{si } i=0 \text{ y } j=0 \\\\
+            (M[i-1][j] \text{ AND } Y[i-1]==Z[i+j-1]) \text{ OR } \\ (M[i][j-1] \text{ AND } X[j-1]==Z[i+j-1]) & \text{si } i>0 \text{ y } j>0 \\
         \end{cases}
     \end{align*}
+    \vspace{.2cm} 
 
     Al final sabremos si $Z$ es un \textit{shuffle} de $X$ y $Y$ si $M[|Y|][|X|]=1$, ademas el camino
     para ir de la celda $(|Y|,|X|)$ a la celda $(0,0)$ nos dira cuales son los caracteres que se usaron. \vspace{.2cm}
@@ -63,6 +63,3 @@ los primeros $i$ caracteres de $Y$. (podemos cambiar cual es quien pero asi lo h
 
     Para entender mejor checar el ejemplo de arriba.
 \end{quote}
-
-
-\newpage

@@ -1,9 +1,158 @@
 \textbf{Muestra que \textit{cchocohilaptes} es un \textit{shuffle} de \textit{chocolate} y \textit{chips}, pero \textit{chocochilatspe} no lo es.}\vspace{.2cm}
 
-Primmero voy a solucionar el siguiente inciso:
+Para entender esta solución, primero checar el ejercicio 8.b, voy a usar a chocolate como X y a chips como Y.\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Usando el algoritmo de 8.b:}\vspace{.2cm}
 \begin{quote}
-    
+    Primero checamos que $|X|+|Y|=|Z|$, si no es asi entonces no puede ser un \textit{shuffle} de $X$ y $Y$, en este caso $|9|+|5|=|14|$ entonces continuamos, creamos nuestra tablita:  \vspace{.2cm}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                        & 0                     & 1                     & 2                     & 3                     & 4                     & 5                     & 6                     & 7                     & 8                     \\
+            &   &                        &                        & c                     & h                     & o                     & c                     & o                     & l                     & a                     & t                     & e                     \\
+            &   & i/j                    & 0                      & 1                     & 2                     & 3                     & 4                     & 5                     & 6                     & 7                     & 8                     & 9                     \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    La tabla que guardamos es unicamente lo marcado con recuadros, lo que puse justo afuera es los indices, en la horizontal van los i y en la vertical los j, ademas inclui las cadenas que estamos comparando en sus lugares con sus indices para que sea mas facil de entender. \vspace{.2cm}
+
+    Usamos la funcion que definimos en el ejercicio 8.b, vamos a empezar por llenar la primera fila: \vspace{.2cm}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                        & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      \\
+            &   &                        &                        & c                      & h                      & o                      & c                      & o                      & l                      & a                      & t                      & e                      \\
+            &   & i/j                    & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      & 9                      \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    Vemos que la (0,1) se llena con un 1 pues cumple que M[0][0] AND X[0]=c==c=Z[0], despues la siguiente checa la h y la compara con la c de Z y como no son iguales ahora el resto de la fila se llena con 0 pues no hay nada mas que comparar. \vspace{.2cm}
+
+    Algo interesante es que si checa arriba y a la izquierda y tiene 0s entonces no tiene que verificar nada mas para esa celda. \vspace{.2cm}
+
+    Podemos seguir llenando por filas pero me gusta mas llenar primero la primera columna para que se vea mas bonito:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                        & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      \\
+            &   &                        &                        & c                      & h                      & o                      & c                      & o                      & l                      & a                      & t                      & e                      \\
+            &   & i/j                    & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      & 9                      \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    Aqui igual la unica que tiene un 1 es la primera c pues igual empieza como nuestra Z pero las demas no, ahora podemos llenar el resto de la tabla fila a fila: \vspace{.2cm}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                        & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      \\
+            &   &                        &                        & c                      & h                      & o                      & c                      & o                      & l                      & a                      & t                      & e                      \\
+            &   & i/j                    & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      & 9                      \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}  \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    Podemos ver que si tiene un uno arriba y uno a la izquierda aun se tiene que usar la funcion, en este caso vemos como podemos empezar con cualquiera de las 2 'c' (hasta ahora) y despues seguir por X hasta llegar a la 'l' que nuestra Z quiere una 'h' entonces ya no encaja y ponemos 0s. \vspace{.2cm}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                        & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      \\
+            &   &                        &                        & c                      & h                      & o                      & c                      & o                      & l                      & a                      & t                      & e                      \\
+            &   & i/j                    & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      & 8                      & 9                      \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{1} \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{1} \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    Vemos que la ultima celda tiene un 1 entonces si es un \textit{shuffle} de X y Y; para verificar vamos a checar el camino y ver si tiene sentido: \vspace{.2cm}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                                                & 0                                              & 1                                              & 2                                              & 3                                              & 4                                              & 5                                              & 6                                              & 7                                              & 8                                              \\
+            &   &                        &                                                & c                                              & h                                              & o                                              & c                                              & o                                              & l                                              & a                                              & t                                              & e                                              \\
+            &   & i/j                    & 0                                              & 1                                              & 2                                              & 3                                              & 4                                              & 5                                              & 6                                              & 7                                              & 8                                              & 9                                              \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{9AFF99}1} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{\cellcolor[HTML]{9AFF99}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{1}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{0}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}1} \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    Entonces seguimos el caminito amarillo, ( si es verde da igual cual tomemos ) y checamos, quitamos una por una letra de Z segun el caminito y quitamos una de X o de Y :
+    \begin{align*}
+        \text{cchocohilaptes} &\ \ \text{chocolate} \ \ \text{chips} \\
+        \text{chocohilaptes} &\ \ \text{chocolate} \ \ \text{hips} \\
+        \text{hocohilaptes} &\ \ \text{hocolate} \ \ \text{hips} \\
+        \text{hilaptes} &\ \ \text{late} \ \ \text{hips} \\
+        \text{laptes} &\ \ \text{late} \ \ \text{ps} \\
+        \text{ptes} &\ \ \text{te} \ \ \text{ps} \\
+        \text{tes} &\ \ \text{te} \ \ \text{s} \\
+        \text{es} &\ \ \text{e} \ \ \text{s} \\
+        \text{s} &\ \ \text{} \ \ \text{s} \\
+        \text{} &\ \ \text{} \ \ \text{} \\
+    \end{align*}
+    \vspace{-1.6cm}
+
+    Entonces si es un \textit{shuffle} de X y Y. (quitamos en orden letras de X y Y y pudimos eliminar Z en orden)\vspace{.2cm}
 \end{quote}
 
+\textcolor{bibi}{Probando que chocochilatspe no es \textit{shuffle}:}\vspace{.2cm}
+\begin{quote}
+    Literalmente vamos a aplicar exactamente lo mismo asi que solo me voy a saltar a tener la tablita completa y ver si llegamos a un 1 en la ultima celda: \vspace{.2cm}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllllllllll}
+            &   &                        &                                                & 0                                              & 1                                              & 2                                              & 3                                              & 4                                              & 5                                              & 6                                              & 7                                              & 8                                              \\
+            &   &                        &                                                & c                                              & h                                              & o                                              & c                                              & o                                              & l                                              & a                                              & t                                              & e                                              \\
+            &   & i/j                    & 0                                              & 1                                              & 2                                              & 3                                              & 4                                              & 5                                              & 6                                              & 7                                              & 8                                              & 9                                              \\ \cline{4-13} 
+            &   & \multicolumn{1}{l|}{0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} \\ \cline{4-13} 
+          0 & c & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} \\ \cline{4-13} 
+          1 & h & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} \\ \cline{4-13} 
+          2 & i & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}1} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} \\ \cline{4-13} 
+          3 & p & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} \\ \cline{4-13} 
+          4 & s & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}0} \\ \cline{4-13} 
+          \end{tabular}
+    \end{table}
+
+    Aqui es claro que no hay un 1 en la ultima celda, de hecho el caminito toma el primer "choco" de la cadena X luego "chi" de Y, luego "lat" de X pero busca una "s" pero como no ha pasado la p de chips entonces no puede acceder a la p y por tanto no es un \textit{shuffle} de X y Y. \vspace{.2cm}
+
+    Veamoslo con el otro metodo:
+    \begin{align*}
+        \text{chocochilatspe} &\ \ \text{chocolate} \ \ \text{chips} \\
+        \text{chilatspe} &\ \ \text{late} \ \ \text{chips} \\
+        \text{latspe} &\ \ \text{late} \ \ \text{ps} \\
+        \text{spe} &\ \ \text{e} \ \ \text{ps} \\
+    \end{align*}
+    \vspace{-.6cm}
+\end{quote}
