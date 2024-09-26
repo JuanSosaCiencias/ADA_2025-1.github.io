@@ -1,5 +1,22 @@
 \textbf{Sea $G$ una gr\'afica cuyas aristas tienen asignados pesos positivos. Sea $T$ un \'arbol generador de peso m\'inimo de G. Pruebe que existen aristas $e \in T$ y $e' \notin T$ tales que $T - \{e \cup e'\}$ forman un \'arbol de peso mayor o igual que $T$, pero menor o igual a cualquier otro \'arbol generador de $G$, i.e. un segundo \'arbol generador de peso m\'inimo.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Vamos a realizar esta prueba por contradicci\'on, supongamos que no existen aristas $e \in T$ y $e' \notin T$ tales que $T - \{e \cup e'\}$ forman un \'arbol de peso mayor o igual que $T$, pero menor o igual a cualquier otro \'arbol generador de $G$. \vspace{.2cm}
+
+Equivalente a decir que para cualquier arista $e' \notin T$ y $e \in T$, $T' = (T-\{e\}) \cup \{e'\}$ tiene un peso menor que $T$. \vspace{.2cm}
+
+\textcolor{bibi}{Por contradicción,} \vspace{.2cm}
 \begin{quote}
+    Construccion de T': \vspace{.2cm}
+
+    Tomamos una arista $e' \notin T$ que tenga el valor minimo. AL agregar $e'$ a $T$, se forma un ciclo ya que $T$ es un \'arbol generador, entonces en este ciclo existe exactamente una arista $e \in T$ que tenga el valor maximo, que si se elimina rompe el ciclo y deja un \'arbol generador, llamemos a este \'arbol $T'$. \vspace{.2cm}
+
+    Denotamos entonces al nuevo arbol como $T' = (T-\{e\}) \cup \{e'\}$. \vspace{.2cm}  
+
+    Esto forma un arbol con un peso mayor que $T$, ya que como $T$ es un \'arbol generador de peso m\'inimo, $e$ es la arista de menor peso en el ciclo, y $e'$ es una arista que no pertenece a $T$, por lo que $w(e') \geq w(e)$. \vspace{.2cm}
+
+    Pero esto contradice la hip\'otesis de que cualquier arista $e' \notin T$ y $e \in T$, $T' = (T-\{e\}) \cup \{e'\}$ tiene un peso menor que $T$.\vspace{.2cm}
+
+    Por lo tanto la hip\'otesis es falsa, y existen aristas $e \in T$ y $e' \notin T$ tales que $T - \{e \cup e'\}$ forman un \'arbol de peso mayor o igual que $T$. \vspace{.2cm}
 \end{quote}
+
+Para la parte de que es menor o igual que cualquier otro basicamente tambien es por contradicción apoyandonos que en su construccion se toma la combinacion de aristas que minimiza el peso del cambio de aristas, no me da tiempo de darle mucho detalle pero asumimos que existe este menor y va a surgir una contradicción por la forma en que creamos a $T'$ entonces podemos ver que no existe este otro arbol pues si existiera lo habriamos considerado al construir a nuestro $T'$. \vspace{.2cm}
