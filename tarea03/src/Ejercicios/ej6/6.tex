@@ -1,5 +1,113 @@
 \textbf{Considera que un r\'io fluye de norte a sur con caudal constante. Suponga que hay $n$ ciudades en ambos lados del r\'io, es decir $n$ ciudades a la izquierda del r\'io y $n$ ciudades a la derecha. Suponga tambi\'en que dichas ciudades fueron numeradas de 1 a $n$, pero se desconoce el orden. Construye el mayor n\'umero de puentes entre ciudades con el mismo n\'umero, tal que dos puentes no se intersecten.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Como ya vimos con la profesora, este problema es similar al problema de encontrar la subsecuencia creciente mas larga. \vspace{.2cm}
+
+\textcolor{bibi}{Programacion dinamica parecida a la de la subsecuencia creciente mas larga.}\vspace{.2cm}
 \begin{quote}
+    Comenzamos caraterizando el problema, en nuestra solucion tenemos que si conectamos dos ciudades con un puente, entonces no podemos conectar una ciudad anterior de un lado con una posterior del otro lado respecto al puente que conecta las dos ciudades, esto significa que podemos ir procesando siempre para adelante, vamos a definir una funcion. \vspace{.2cm}
+
+    Vamos a utilizar un arreglo de (n+1)(n+1) para guardar la subsecuencia comun mas larga, donde la posicion (i, j) guarda la cantidad de puentes que se pueden construir entre las ciudades de la izquierda hasta la ciudad i y las ciudades de la derecha hasta la ciudad j, esto se puede ver algo asi: \vspace{.2cm}   
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{lllllll}
+            \cellcolor[HTML]{FFFFFF}\textit{}      &                        & \cellcolor[HTML]{FFFFFF}\textit{}                      & \cellcolor[HTML]{FFFFFF}\textit{$R_1$}                 & \cellcolor[HTML]{FFFFFF}\textit{$R_2$}                 & \cellcolor[HTML]{FFFFFF}\textit{$\dots$}               & \cellcolor[HTML]{FFFFFF}\textit{$R_n$}                 \\
+                                                   &                        & -                                                      &                                                        &                                                        &                                                        &                                                        \\ \cline{3-7} 
+            \cellcolor[HTML]{FFFFFF}\textit{}      & \multicolumn{1}{l|}{-} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} \\ \cline{3-7} 
+            \cellcolor[HTML]{FFFFFF}\textit{$L_1$} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} \\ \cline{3-7} 
+            $L_2$                                  & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  \\ \cline{3-7} 
+            $\dots$                                & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  \\ \cline{3-7} 
+            \cellcolor[HTML]{FFFFFF}\textit{$L_n$} & \multicolumn{1}{l|}{}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}} \\ \cline{3-7} 
+            \end{tabular}
+    \end{table}
+
+    Ahora para llenar la matriz, vamos a utilizar la siguiente funcion de recurrencia: \vspace{.2cm}
+    \begin{align*}
+        \text{puentes}[i][j]=\begin{cases}
+            0 & \text{si } i=0 \text{ o } j=0 \\
+            puentes[i-1][j-1]+1 & \text{si } L[i]=R[j] \\
+            \max(puentes[i-1][j],puentes[i][j-1]) & \text{si } L[i]\neq R[j]
+        \end{cases}
+    \end{align*}
+
+    Donde $L$ y $R$ son los arreglos de las ciudades de la izquierda y de la derecha respectivamente. La maxima cantidad de puentes entre ciudades del mismo numero sin intersecciones se vera en la entrada [n+1,n+1]. Este algoritmo tiene complejidad $O(n^2)$ pues cada celda de la matriz se llena en tiempo constante y complejidad espacial $O(n^2)$ pues la matriz tiene dimensiones $n+1$ por $n+1$. \vspace{.2cm}
+
+    Para entenderlo mejor veamos un ejemplo: \vspace{.2cm}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{llllllll}
+            \cellcolor[HTML]{FFFFFF}\textit{}      &                        & \cellcolor[HTML]{FFFFFF}\textit{}                       & \cellcolor[HTML]{FFFFFF}\textit{$R_1$}                  & \cellcolor[HTML]{FFFFFF}\textit{$R_2$}                  & \cellcolor[HTML]{FFFFFF}\textit{$R_3$}                  & \cellcolor[HTML]{FFFFFF}\textit{$R_4$}                  & $R_5$                  \\
+                                                   &                        & -                                                       & 4                                                       & 1                                                       & 2                                                       & 3                                                       & 5                      \\ \cline{3-8} 
+            \cellcolor[HTML]{FFFFFF}\textit{}      & \multicolumn{1}{l|}{-} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{0} \\ \cline{3-8} 
+            \cellcolor[HTML]{FFFFFF}\textit{$L_1$} & \multicolumn{1}{l|}{5} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{}  \\ \cline{3-8} 
+            $L_2$                                  & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{0}                                  & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}  \\ \cline{3-8} 
+            $L_3$                                  & \multicolumn{1}{l|}{3} & \multicolumn{1}{l|}{0}                                  & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}  \\ \cline{3-8} 
+            \cellcolor[HTML]{FFFFFF}\textit{$L_4$} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{}}  & \multicolumn{1}{l|}{}  \\ \cline{3-8} 
+            $L_5$                                  & \multicolumn{1}{l|}{4} & \multicolumn{1}{l|}{0}                                  & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}                                   & \multicolumn{1}{l|}{}  \\ \cline{3-8} 
+            \end{tabular}
+    \end{table}
+
+    Usando el primer caso llenamos de 0 la primera fila y la primera columna, luego usamos la recurrencia para llenar el resto de la matriz. \vspace{.2cm}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{llllllll}
+            \textit{}      & \textit{}                       & \textit{}                       & \textit{$R_1$}                  & \textit{$R_2$}                  & \textit{$R_3$}                  & \textit{$R_4$}                  & \textit{$R_5$}                  \\
+            \textit{}      & \textit{}                       & \textit{-}                      & \textit{4}                      & \textit{1}                      & \textit{2}                      & \textit{3}                      & \textit{5}                      \\ \cline{3-8} 
+            \textit{}      & \multicolumn{1}{l|}{\textit{-}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} \\ \cline{3-8} 
+            \textit{$L_1$} & \multicolumn{1}{l|}{\textit{5}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{1}} \\ \cline{3-8} 
+            \textit{$L_2$} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{1}} \\ \cline{3-8} 
+            \textit{$L_3$} & \multicolumn{1}{l|}{\textit{3}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{2}} \\ \cline{3-8} 
+            \textit{$L_4$} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{2}} \\ \cline{3-8} 
+            \textit{$L_5$} & \multicolumn{1}{l|}{\textit{4}} & \multicolumn{1}{l|}{\textit{0}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{2}} \\ \cline{3-8} 
+            \end{tabular}
+    \end{table}
+
+    Vemos que la maxima cantidad de puentes que se pueden construir en este caso son 2, para recuperar el camino empezamos desde la esquina inferior derecha, y checamos, si los valores de las ciudades coinciden entonces son parte de la solucion, la agregamos a una lista de solucion y nos movemos a la diagonal superior izquierda, si no coinciden entonces, nos movemos al mayor entre el de arriba y el de la izquierda, si son iguales nos movemos al de arriba. \vspace{.2cm}
+    
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{llllllll}
+            \textit{}      & \textit{}                       & \textit{}                                               & \textit{$R_1$}                                          & \textit{$R_2$}                                          & \textit{$R_3$}                                          & \textit{$R_4$}                                          & \textit{$R_5$}                                          \\
+            \textit{}      & \textit{}                       & \textit{-}                                              & \textit{4}                                              & \textit{1}                                              & \textit{2}                                              & \textit{3}                                              & \textit{5}                                              \\ \cline{3-8} 
+            \textit{}      & \multicolumn{1}{l|}{\textit{-}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFFFF}\textit{0}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         \\ \cline{3-8} 
+            \textit{$L_1$} & \multicolumn{1}{l|}{\textit{5}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{0}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{1}}                         \\ \cline{3-8} 
+            \textit{$L_2$} & \multicolumn{1}{l|}{\textit{1}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{1}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{1}} & \multicolumn{1}{l|}{\textit{1}}                         & \multicolumn{1}{l|}{\textit{1}}                         \\ \cline{3-8} 
+            \textit{$L_3$} & \multicolumn{1}{l|}{\textit{3}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{1}}                         & \multicolumn{1}{l|}{\textit{1}}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{2}} & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{2}} \\ \cline{3-8} 
+            \textit{$L_4$} & \multicolumn{1}{l|}{\textit{2}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{1}}                         & \multicolumn{1}{l|}{\textit{2}}                         & \multicolumn{1}{l|}{\textit{2}}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{2}} \\ \cline{3-8} 
+            \textit{$L_5$} & \multicolumn{1}{l|}{\textit{4}} & \multicolumn{1}{l|}{\textit{0}}                         & \multicolumn{1}{l|}{\textit{1}}                         & \multicolumn{1}{l|}{\textit{1}}                         & \multicolumn{1}{l|}{\textit{2}}                         & \multicolumn{1}{l|}{\textit{2}}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{FFFC9E}\textit{2}} \\ \cline{3-8} 
+            \end{tabular}
+    \end{table}
+
+    En este caso la solucion es unir $L_3,R_4$ pues ambos tienen la ciudad numero 3 y unir $L_2,R_2$ pues ambas tienen la ciudad numero 1, y la cantidad de puentes es 2, esto se ve algo asi: \vspace{.2cm}
+
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.1\textwidth}{!}{%  
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\LARGE]
+                \draw  (3.75,14) circle (0cm);
+                \draw  (3.75,14) circle (0.75cm) node {\LARGE 5} ;
+                \draw  (3.75,11.5) circle (0.75cm) node {\LARGE 1} ;
+                \draw  (3.75,9) circle (0.75cm) node {\LARGE 3} ;
+                \draw  (3.75,6.5) circle (0.75cm) node {\LARGE 2} ;
+                \draw  (3.75,4) circle (0.75cm) node {\LARGE 4} ;
+                \draw  (8.75,14) circle (0cm);
+                \draw  (8.75,14) circle (0.75cm) node {\LARGE 4} ;
+                \draw  (8.75,11.5) circle (0.75cm) node {\LARGE 1} ;
+                \draw  (8.75,9) circle (0.75cm) node {\LARGE 2} ;
+                \draw  (8.75,6.5) circle (0.75cm) node {\LARGE 3} ;
+                \draw  (8.75,4) circle (0.75cm) node {\LARGE 5} ;
+                \draw [short] (4.5,9) -- (8,6.5);
+                \draw [short] (4.5,11.5) -- (8,11.5);
+                \end{circuitikz}
+            }%
+            
+            \label{fig:ciudades1}
+        \end{figure}
+    \end{center}
+
+    A notar que podemos dejar de buscar puentes en cuanto lleguemos a un 0 en la matriz, pues no podremos encontrar mas puentes. \vspace{.2cm}
 \end{quote}
