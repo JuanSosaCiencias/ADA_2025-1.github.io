@@ -1,5 +1,58 @@
 \textbf{Supongamos que usted quiere marcar un n\'umero de $n$ d\'igitos $\{r_1, r_2, \dots, r_n\}$ en un tel\'efono normal en el que los n\'umeros est\'an en un arreglo normal de $4 \times 3$ teclas utilizando s\'olo dos dedos. Supongamos que al comenzar a marcar, sus dedos est\'an en las teclas ``$*$'' y ``$\#$''. Encuentre un algoritmo de tiempo lineal (programaci\'on din\'amica) que minimiza la distancia Euclideana que tienen que recorrer sus dedos.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+
+Pido perdon por el siguiente algoritmo pero bueno no hubo mucha mejor opcion, primero que nada nuestro teclado se ve asi: (es una matriz de 4x3) \vspace{.2cm}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lll}
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9 \\
+        $\ast$ & 0 & \#
+        \end{tabular}
+\end{table}
+
+Entonces podemos dar la posicion de cada tecla con coordenadas $(x,y)$ donde $x$ es la fila y $y$ es la columna:
+\begin{itemize}
+    \item (0,0) para 1
+    \item (0,1) para 2
+    \item (0,2) para 3
+    \item (1,0) para 4
+    \item (1,1) para 5
+    \item (1,2) para 6
+    \item (2,0) para 7
+    \item (2,1) para 8
+    \item (2,2) para 9
+    \item (3,0) para $\ast$
+    \item (3,1) para 0
+    \item (3,2) para \#
+\end{itemize}
+
+Ademas de esto, la distancia euclideana entre dos teclas $t_1 = (x_1,y_1)$ y $t_2 = (x_2,y_2)$ es :
+
+\begin{align*} 
+    dist(t_1,t_2) = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
+\end{align*}
+
+En la ayudantia se dijo algo sobre no poder saltar por numeros pero no veo porque no se podria en base a lo que dice el problema. \vspace{.2cm}
+
+El algoritmo que voy a presentar es increiblemente malo para numeros chicos pero para numeros grandes funciona muy bien (O(n) digitos). \vspace{.2cm}
+
+\textcolor{bibi}{Programacion dinamica con matriz 3d:} \vspace{.2cm}
 \begin{quote}
+    Suena un poco raro pero basicamente queremos 3 cosas, el calculo del costo minimo hasta el digito i, la posicion del dedo 1 digamos j y la posicion del dedo 2 digamos k. Entonces vamos a hacer una matriz 3d, digamosle M[i][j][k], sabemos que i va de 1 a n, j y k usan la represntacion de las teclas que dije antes. Entonces M[i][j][k] va a ser el costo minimo de marcar los primeros i digitos con el dedo 1 en la tecla j y el dedo 2 en la tecla k. \vspace{.2cm}
+
+    Esta funcion se ve asi: \vspace{.2cm}
+    \begin{align*}
+        M[i][j][k]=\begin{cases}
+            0 & \text{si } i=0 \\
+            min\{M[i-1][j'][k]+dist(j',r_i), M[i-1][j][k']+dist(k',r_i)\} & \text{si } i>0 \\
+        \end{cases}
+    \end{align*}
+
+    Aclaraciones sobre la funcion, el estado inicial de j es (3,0) y el de k es (3,2), por lo que cuando estamos en el digito i=0, estos son sus valores, a la hora de calcular el digito actual, vamos a ver cual es el minimo entre el costo de mover el dedo 1, que estaba en un estado j' y el dedo 2 en k, y el costo de mover el dedo 2, que estaba en un estado k' y el dedo 1 en j. El digito actual i que estamos procesando es $r_i$, una vez movemos el dedo a esa posicion ese sera su nuevo estado. \vspace{.2cm}
+
+    Al final nuestro resultado va a ser el minimo entre M[n][j][k] para todo j y k. \vspace{.2cm}
+
+    En escencia lo que esta pasando es que tenemos 12 estados posibles por dedo y vamos a ir calculando el costo minimo de marcar los primeros i digitos moviendo los dedos a otros estados, como tenemos n digitos y hay 12 estados posibles por dedo, la complejidad es O(n*12*12) = O(n).
 \end{quote}

@@ -1,5 +1,56 @@
 \textbf{Dados dos \'arboles generadores $T$ y $R$ de una gr\'afica $G = (V, E)$, muestra c\'mo encontrar la secuencia m\'as corta de \'arboles generadores $T_0, T_1, \dots, T_k$ tal que $T_0 = T$, $T_k = R$ y cada \'arbol $T_i$ difiere del \'arbol anterior $T_{i-1}$ agregando y borrando una arista.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Primero que nada aclarar que como estamos considerando que son arboles generadores de una grafica general, el ismorfismo no vale, es decir, si 2 arboles son isomorfos no necesariamente son arboles generadores iguales, en particular digamos: \vspace{.2cm}
+
+\begin{center}
+    \begin{figure}[H]
+        \centering
+        \resizebox{.5\textwidth}{!}{%  
+        \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \draw  (10,10.25) circle (0cm);
+            \draw  (10,7.75) circle (0.5cm) node {\LARGE a} ;
+            \draw  (10,10.25) circle (0.5cm) node {\LARGE b} ;
+            \draw  (12.5,6.5) circle (0.5cm) node {\LARGE c} ;
+            \draw  (7.5,6.5) circle (0.5cm) node {\LARGE d} ;
+            \draw [short] (10,7.75) -- (10,10.25);
+            \draw [short] (10,10.25) -- (12.5,6.5);
+            \draw [short] (12.5,6.5) -- (7.5,6.5);
+            \draw  (15,6.5) circle (0.5cm) node {\LARGE d} ;
+            \draw  (20,6.5) circle (0.5cm) node {\LARGE c} ;
+            \draw  (17.5,7.75) circle (0.5cm) node {\LARGE a} ;
+            \draw  (17.5,10.25) circle (0.5cm) node {\LARGE b} ;
+            \draw [short] (17.5,7.75) -- (20,6.5);
+            \draw [short] (20,6.5) -- (15,6.5);
+            \draw [short] (15,6.5) -- (17.5,10.25);
+        \end{circuitikz}
+        }%
+        
+        \label{fig:arbolesIso}
+    \end{figure}
+\end{center}
+
+Estos 2 arboles se pueden comprobar como isomorfos, pero no son arboles generadores iguales, ya que la lista de adyacencias de la grafica es diferente. (o al menos eso me hace mas sentido xd igual ver si arboles son isomorfos cuesta $O(|V|)$ asi que se podria hacer antes del siguiente algoritmo) \vspace{.2cm}
+
+Ahora si la secuencia de \'arboles generadores la vamos a hacer de la siguiente manera: \vspace{.2cm}
+
+\textcolor{bibi}{Diferencia simetrica:} \vspace{.2cm}
 \begin{quote}
+    Primero vamos a encontrar las diferencias entre T y R, identificamos las aristas que est\'an en T y no en R, y las que est\'an en R y no en T. \vspace{.2cm}
+
+    Sea $E_T$ el conjunto de aristas de T y $E_R$ el conjunto de aristas de R. Entonces, definimos a $Extras=E_T \setminus E_R$ (aristas que est\'an en T y no en R) y a $Faltantes=E_R \setminus E_T$ (aristas que est\'an en R y no en T). \vspace{.2cm}
+
+    Es evidente que vamos a realizar primero agregar uno de $Faltantes$ crear un ciclo y despues vamos a tener que hacer un corte de alguno de $Extras$ en $T_{0}$ para obtener un \'arbol generador de G, $T_1$. \vspace{.2cm}
+
+    Este proceso lo vamos a hacer hasta que $Extras$ y $Faltantes$ sean vac\'ios, es decir, hasta que $T_k = R$; pero, lo importante radica en como saber que al hacer cada una de estas operaciones siga siendo arbol. \vspace{.2cm}
+
+    Bueno primero como estamos agregando una arista aqui solo podemos violar el agregar un ciclo y de hecho como es arbol siempre vamos a agregar un ciclo, entonces para que siga siendo arbol, vamos a tener que cortar una arista de $Extras$ que forme parte del ciclo que acabamos de agregar. \vspace{.2cm}
+
+    Ahora, como R es arbol (no contiene a este ciclo) podemos garantizar, que habra una arista diferente a la que acabamos de agregar que forme parte del ciclo y que ademas este en $Extras$ por tanto empezando desde un extremo de la arista que acabamos de agregar, vamos a buscar a esta otra arista y la vamos a cortar; (tenemos que verificar el ciclo es decir llegar al otro extremo de nuestra arista que agregamos, toma $O(|V|)$)\vspace{.2cm}
+
+    Alternativamente se puede pensar como, desconectar, crear 2 componentes conexas y de esas ver una arista de $Faltantes$ que conecte las 2 componentes conexas, esta arista es la que vamos a agregar pero no vamos a ir por este camino.\vspace{.2cm}
+
+    En el peor de los casos, la diferencia simetrica entre los arboles es del orden de $O(|V|)$, por tanto el algoritmo tiene una complejidad de $O(|V|^2)$, se podria mejorar la complejidad si vamos usando alguna EDD para checar los ciclos. \vspace{.2cm}
+
+    Afortunadamente aqui piden que el algoritmo nos regrese la secuencia de arboles generadores minima, sabemos que esto se va a cumplir pues en cada paso estamos acercandonos en 2 aristas a R, que es lo maximo que se puede acercar un arbol a otro, quitando y poniendo solo 1 arista por turno, es decir, si hubiera un camino mas corto, este tendria que acercarse a R mas rapido que 2 aristas por turno, lo cual no es posible. \vspace{.2cm}
 \end{quote}
