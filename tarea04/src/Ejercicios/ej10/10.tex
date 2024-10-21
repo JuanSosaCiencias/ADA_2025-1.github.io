@@ -2,6 +2,23 @@
     Diseña un algoritmo de tiempo $O(|V|+|E|)$ determine si una gráfica dirigida 
     $G = (V,E)$ contiene o no un ciclo.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{DFS Modificado}
 \begin{quote}
+    Para determinar si una gráfica dirigida $G = (V,E)$ contiene un ciclo, se 
+    puede utilizar una modificación del algoritmo de búsqueda en profundidad 
+    (DFS). \vspace{.2cm}
+
+    El algoritmo de DFS primero que nada consiste en recorrer todos los nodos 
+    utilizando una pila. Empezando por un nodo, lo agregamos a la pila, lo sacamos
+    marcamos como visitado (podemos usar un arreglo booleano o mas facil agregarle informacion a los vertices, tipo (valor, visitado, listaAdyacencias)) y agregamos su lista de adyacencias a la pila. Despues vamos sacando del tope, si el nodo no ha sido visitado, lo marcamos como visitado y repetimos con su lista de adyacencias, escencialmente visitando a lo mas profundo que podemos antes de visitar a sus vecinos, este algoritmo tiene complejidad de $O(|V|+|E|)$ cada vertice se visita solo una vez pues se marca como visitado y todas las aristas se visitan pues cuando checamos un nodo tenemos que ver a todos sus vecinos para saber si ya estan o no checados. \vspace{.2cm}
+
+    Para determinar si una gráfica dirigida $G = (V,E)$ contiene un ciclo, se
+    puede utilizar una modificación del algoritmo de DFS. La modificación consiste
+    en agregar un arreglo de booleanos que nos indique si un nodo ha sido visitado
+    en el recorrido actual (podemos buscar a un nodo por su indice), la idea es la misma, ir marcando vertices pero esta vez solo vamos a ir marcando el recorrido actual y cuando hagamos backtrack tambien quitamos esos nodos de la lista de visitados. Si en algun momento encontramos un nodo que ya ha sido visitado en el recorrido actual, entonces hemos encontrado un ciclo. \vspace{.2cm}
+
+    Como el algoritmo de DFS tiene complejidad $O(|V|+|E|)$, la modificación, solo tiene que agregar un arreglo de booleanos que tiene complejidad $O(|V|)$, por lo que la complejidad del algoritmo modificado se queda en $O(|V|+|E|)$. \vspace{.2cm}
+
+    Se puede justificar que funciona pues si existe un camino que contenga un ciclo entonces en algun momento vamos a visitar un nodo que ya habiamos visitado en el recorrido actual, ademas, el no revisitar nodos que ya han sido visitados en el recorrido actual podria parecer que podria no dejarnos ver ciclos pero como estamos usando DFS si el ciclo existe por debajo de un nodo ya visitado entonces lo habriamos cachado en ese otro recorrido y no hay necesidad de volver a visitarlo. 
 \end{quote}
