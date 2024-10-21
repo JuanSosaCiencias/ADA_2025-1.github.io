@@ -24,4 +24,3 @@
 
     La complejidad de Ford Fulkerson es $O(f^*(|E|+|V|))$ donde $f^*$ es el flujo maximo, en el peor caso $f^* = m = ((n-2)*4)$ (porque hay 4 fronteras cada una con n-2 salidas, ya que las esquinas no nos sirven) y $|E| \approx n^2$ (porque hay nxn en la malla por 4 aristas originales mas unas pocas de la transformación) ademas $|V| \approx 2n^2+2$ (porque hay 2 nodos por cada vertice de la malla mas 2 nodos de la fuente y el sumidero), por lo que la complejidad del algoritmo maso menos es $O(((n-2)*4)(n^2+2n^2+2)) = O(n (n^2)) = O(n^3)$
 \end{quote}
-\newpage
