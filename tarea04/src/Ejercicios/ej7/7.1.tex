@@ -3,6 +3,16 @@
     algoritmo de tiempo $O(n+E)$ para actualizar nuestro flujo. $E$ es el número de aristas 
     de $N$.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Usando FF con BFS}
 \begin{quote}
+    Primero que nada hay que notar que al ya tener un flujo optimo en la red asumo se refiere a maximo pues minimo podria solo no enviar nada y ya. \vspace{.2cm} 
+
+    Como el flujo ya es maximo, entonces sigue el \textbf{Teorema de Flujo Máximo-Corte Mínimo} que dice que si f un flujo circula en una red de flujo con origen s y destino t, f es el flujo máximo de G si la red residual de G no contiene trayectorias aumentantes, esto nos garantiza que cuando incrementemos una arista en una unidad solo hay una oportunidad para que un camino nuevo se habilite y sera unico. (f*=1 maximo cuando aumentemos la arista) \vspace{.2cm}
+
+    Tras actualizar la capacidad de la arista, revisamos si existe un nuevo camino aumentante en la red residual, para ello usamos BFS, esto toma $O(|V|+|E|)=O(n+E)$ \vspace{.2cm}
+
+    Si existe este camino aumentante, entonces incrementamos el flujo en una unidad si es que afecta y en el peor de los casos hay que actualizar las capacidades de todas las aristas del camino aumentante, esto toma $O(|V|)$ \vspace{.2cm}
+
+    Por lo tanto, el algoritmo toma $O(n+E)$ en total. \vspace{.2cm}
 \end{quote}

@@ -2,6 +2,16 @@
     Supongamos que la capacidad de una sola arista $e$ se decrementa en una unidad. De un
     algoritmo de tiempo $O(n + E)$ donde $E$ es el número de aristas de $N$.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{BFS}
 \begin{quote}
+    Aqui igual estoy asumiendo que optimo se refiere a maximo porque minimo podria no enviar nada y no hay negativos. \vspace{.2cm}
+
+    Comenzamos por decrementar la capacidad de la arista $e$ en una unidad. Ahora tenemos 2 casos, si el flujo a traves de la arista $e$ es menor o igual que la nueva capacidad de $e$, entonces el flujo óptimo no se ve afectado. En caso contrario, debemos reducir el flujo en la arista $e$ a la nueva capacidad de $e$. \vspace{.2cm}
+
+    Ahora debemos checar si podemos enviar más flujo desde $s$ a $t$ (reubicar esa unidad a otro camino). Para esto podemos usar BFS, si encontramos un camino de $s$ a $t$ entonces podemos enviar a lo mas una unidad de flujo por ese camino, pues solo decrementamos la capacidad de una arista en una unidad, si no hay camino acabamos, esto toma $O(|E|+|V|)$. \vspace{.2cm}
+
+    Ahora puede que necesitemos ajustar las capacidades de las aristas en el camino encontrado, esto toma $O(|V|)$, por lo que el algoritmo toma $O(|E|+|V|) = O(n+E)$. \vspace{.2cm}
+
+    Es evidente que si es que hay camino y hicimos todo el proceso al final no puede existir otro camino (seria sumarle mas de 1 al flujo y no hay decimales) pues esto nos daria un flujo mayor al optimo, lo cual seria una contradiccion. \vspace{.2cm}
 \end{quote}
