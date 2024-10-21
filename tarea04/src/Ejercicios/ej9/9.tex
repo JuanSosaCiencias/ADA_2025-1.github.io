@@ -11,6 +11,35 @@
     si $G$ tiene 5 vertices ${v_1, v_2, v_3, v_4, v_5}$ y sus pesos son {1,8,6,3,6},
     el conjunto independiente de peso máximo es ${v_2,v_5}$ y tiene peso 14.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+La verdad no se si entendi este problema pero voy a reutilizar el algoritmo que usamos en la tarea pasada para encontrar al conjunto de personas que invitar a una fiesta. La idea es usar PD para guardar el valor de incluir vs no incluir al nodo. \vspace{.2cm}
+
+\textcolor{bibi}{Usando PD}
 \begin{quote}
+    Primero que nada vamos a usar un arreglo de tamaño $n$ en donde en cada punto tendremos un par (incluir, no incluir) comenzamos por el primer nodo, y en este caso como no hemos procesado ningun otro vamos a llenarlo con ($p_i$,0).\vspace{.2cm}
+
+    Ahora para cada nodo siguiente del camino vamos a usar la siguiente funcion de recurrencia:
+    \begin{align*}
+        \text{PD}[i] = \left\{
+            (p_i + \text{PD}[i-1].\text{noIncluir}, max(\text{PD}[i-1].\text{noIncluir}, \text{PD}[i-1].\text{Incluir})) 
+            \right\}
+    \end{align*}
+
+    Escencialmente lo que estamos haciendo es conseguir para cada nodo su valor hasta ese punto de agregarlo o no agregarlo. Al final de todo vamos para conseguir el conjunto independiente, checamos para el ultimo nodo si es mejor incluirlo o no, si lo incluimos, le restamos el valor de su peso al valor total y lo agregamos al conjunto, y nos movemos al nodo anterior, sabiendo que el valor que nos queda despues de restarle tiene que ser igual al valor que teniamos en algun nodo anterior, asi podemos ir consiguiendo el conjunto independiente. \vspace{.2cm}
+
+    \textbf{Ejemplo:} \vspace{.2cm}
+
+    Usando $G$ tiene 5 vertices ${v_1, v_2, v_3, v_4, v_5}$ y sus pesos son {1,8,6,3,6}. \vspace{.2cm}
+
+    \begin{align*}
+        DP &= [(1,0),(,),(,),(,),(,)] \\
+        &= [(1,0),(8,1),(,),(,),(,)] \\
+        &= [(1,0),(8,1),(7,8),(,),(,)] \\
+        &= [(1,0),(8,1),(7,8),(11,8),(,)] \\
+        &= [(1,\mathcolorbox{yellow}{0}),(\mathcolorbox{yellow}{8},1),(7,\mathcolorbox{yellow}{8}),(11,\mathcolorbox{yellow}{8}),(\mathcolorbox{yellow}{14},11)] \\
+    \end{align*}
+
+    En este caso el conjunto independiente es ${v_2,v_5}$ y tiene peso 14. Se puede recuperar como dijimos viendo que 14 es mayor que 11 entonces se incluye, se resta el peso de 5 (14-6=8), pasamos al nodo anterior, buscamos 8 y vemos que no lo incuimos, en el tercer nodo tampoco lo incluimos, en el segundo nodo como el 8 esta en incluirlo lo incluimos, restamos el peso de 2 (8-8=0) y podemos no incuir al resto de los nodos. \vspace{.2cm}
+
+    Como podemos ver en cada paso se hace una operacion constante pues solo es consultar a su vecino anterior y esto lo hace para cada nodo, por lo que el tiempo de ejecucion es $O(n)$.
 \end{quote}

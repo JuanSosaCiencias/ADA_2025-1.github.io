@@ -1,7 +1,27 @@
 \textbf{
-    Describe un algoritmo eficiente que de solución al problema del escape y analice su tiempo
-    de ejecución.
+    Describe un algoritmo eficiente que de solución al problema del escape y analice su tiempo de ejecución.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Usando inciso anterior mas Ford Fulkerson}
 \begin{quote}
+    De entrada si $m > ((n-2)*4)$ entonces no hay escapatoria, ya que hay mas nodos de arranque que nodos de la frontera, por lo que no se puede conectar a todos los nodos de arranque con la frontera. \vspace{.2cm}
+
+    Comenzamos usando el inciso anterior de esta pregunta para transformar el problema del escape a un problema de flujo maximo ordinario, para posteriormente usar Ford Fulkerson para encontrar el flujo maximo de la red de flujo resultante. \vspace{.2cm}
+
+    Entonces, para cada vertice $(i,j)$ lo vamos a descomponer en 2 nodos $(i,j)_{in}$ y $(i,j)_{out}$, y vamos a agregar una arista de $(i,j)_{in}$ a $(i,j)_{out}$ con capacidad 1, igualmente vamos a considerar todas las aristas que salian de $(i,j)$ a $(i',j')$ y las vamos a agregar a $(i,j)_{out}$ dirigidas a $(i',j')_{in}$ de tal forma que la capacidad de estas aristas sea 1, ahora vamos a considerar las aristas que llegaban a $(i,j)$ de $(i',j')$ y las vamos a agregar a $(i',j')_{out}$ dirigidas a $(i,j)_{in}$ de tal forma que la capacidad de estas aristas sea 1, esta parte escencialmente es aplicar $a$ para transformar la malla a una grafica dirigida con capacidades en las aristas. \vspace{.2cm}
+
+    Sin embargo aun nos falta agregar fuentes y sumideros, para esto vamos a agregar un nodo fuente $S$ (de source) y lo vamos a conectar a todos los nodos de arranque $(i,j)_{out}$ con una arista de capacidad 1, y vamos a agregar un nodo sumidero $T$ (de target) y lo vamos a conectar a todos los nodos de la frontera $(i,j)_{out}$ con una arista de capacidad 1 (los de la frontera ya se dijeron cuales son en la pregunta). \vspace{.2cm}
+
+    Ahora vamos a aplicar Ford Fulkerson a la red de flujo resultante, y si el flujo maximo es igual a $m$ entonces si hay una escapatoria, de lo contrario no la hay. \vspace{.2cm}
+
+    El algoritmo FF ya se vio en clase pero sus pasos son los siguientes: \vspace{.2cm}
+    \begin{itemize}
+        \item Encontramos un camino de $S$ a $T$ en la red residual. (Usando BFS toma $O(|V|+|E|)$)
+        \item Seelccionar al min de las capacidades de las aristas del camino encontrado. (Toma $O(|V|)$)
+        \item Actualizar las capacidades de las aristas del camino encontrado, es decir decrementamos el flujo de aristas de camino y actualizamos el reflujo. (Toma $O(|V|)$)
+        \item Repetimos los pasos anteriores hasta que no haya camino de $S$ a $T$ en la red residual. 
+    \end{itemize}
+
+    La complejidad de Ford Fulkerson es $O(f^*(|E|+|V|))$ donde $f^*$ es el flujo maximo, en el peor caso $f^* = m = ((n-2)*4)$ (porque hay 4 fronteras cada una con n-2 salidas, ya que las esquinas no nos sirven) y $|E| \approx n^2$ (porque hay nxn en la malla por 4 aristas originales mas unas pocas de la transformación) ademas $|V| \approx 2n^2+2$ (porque hay 2 nodos por cada vertice de la malla mas 2 nodos de la fuente y el sumidero), por lo que la complejidad del algoritmo maso menos es $O(((n-2)*4)(n^2+2n^2+2)) = O(n (n^2)) = O(n^3)$
 \end{quote}
+\newpage

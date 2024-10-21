@@ -1,10 +1,15 @@
 \textbf{
-    Considere una red de flujos cuyos vértices, así como las aritas, tengan capacidades.
-    Esto es, el flujo positivo que entra a cualquier vértice está sujeto a una restricción
-    de capacidad. Muestre que determinar el flujo máximo con capacidades tanto en los vértices
-    como aristas puede ser reducido a un problema de flujo máximo ordinario en una red de 
-    flujo con tamaño similar.
+    Considere una red de flujos cuyos vértices, así como las aristas, tengan capacidades. Esto es, el flujo positivo que entra a cualquier vértice está sujeto a una restricción de capacidad. Muestre que determinar el flujo máximo con capacidades tanto en los vértices
+    como aristas puede ser reducido a un problema de flujo máximo ordinario en una red de flujo con tamaño similar.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Transformacion agregando aristas}
 \begin{quote}
+    Como ya sabemos, el problema de flujo maximo ordinario solo considera restricciones en las aristas, por lo que vamos a pasar las restricciones de los vertices a una nueva arista, de tal forma que si un vertice tiene una restriccion de capacidad $c$, entonces vamos a agregar una arista de tal forma que la capacidad de esta sea $c$, ahora explico con mas detalle como se haria esto. \vspace{.2cm}
+
+    Lo primero que vamos a hacer es dividir a nuestros nodos en 2, digamos si tenemos el nodo $v$, entonces vamos a tener 2 nodos $v_{in}$ y $v_{out}$, ahora vamos a agregar una arista de $v_{in}$ a $v_{out}$ con capacidad $c$, donde $c$ es la capacidad del nodo $v$, despues vamos a considerar todas las aristas que salian de $v$ a $v'$ y las vamos a agregar a $v_{out}$ dirigidas a los $v'_{in}$ de tal forma que la capacidad de estas aristas sea la misma que la de las aristas originales (se ve que las aristas que llegan a un vertice se consideran cuando hacemos este proceso para el vertice de salida, osea las aristas que llegan a $v_{in}$ de $v''_{out}$ se van a considerar cuando agregemos las de salida de $v''$). \vspace{.2cm} 
+
+    Después de aplicar la transformación anterior, la nueva red de flujo solo tiene restricciones en las aristas (incluyendo las aristas que conectan los nodos $v_{in}$ y $v_{out}$), por lo que podemos aplicar el algoritmo de flujo maximo ordinario para encontrar el flujo maximo de la red original.\vspace{.2cm} 
+
+    Esta red tiene 2 veces el numero de nodos que la red original, y +n aristas, donde n es el numero de nodos de la red original, pero en general la complejidad de este algoritmo es la misma que la del algoritmo de flujo maximo ordinario. \vspace{.3cm} 
 \end{quote}
