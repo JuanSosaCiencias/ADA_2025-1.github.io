@@ -8,6 +8,16 @@
     Muestre cómo modelar el problema de decidir si es posible enviar a los 2 hijos a la misma 
     escuela como un problema de flujos.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Modelando el problema como un problema de flujos:}
 \begin{quote}
+    Comenzamos por modelar las intersecciones de las calles como nodos, debido a que pueden pasar ambos hijos no tienen restricciones, ademas, el nodo de la casa del profesor es el nodo fuente y el nodo de la escuela es el nodo sumidero. \vspace{.2cm}
+
+    Ahora agregaremos las aceras como aristas, diremos que tienen capacidad de 1 pues si ya paso uno de los 2 el otro no puede usarla, unimos las intersecciones con las aceras que los conectan. \vspace{.2cm}
+
+    Ahora tenemos un grafo dirigido con capacidad en las aristas, los nodos fuentes y sumideros deben tener al menos 2 aristas salientes y entrantes respectivamente para que el flujo pueda pasar por ellos. \vspace{.2cm}
+    
+    Para decidir si es posible que ambos hijos lleguen a la escuela sin violar restricciones, basta con encontrar el flujo máximo en el grafo, si el flujo máximo es 2 entonces es posible que ambos hijos lleguen a la escuela, de lo contrario no es posible, esto porque existen 2 caminos disjuntos entre la casa del profesor y la escuela que puede tomar cada hijo.\vspace{.2cm}
+
+    Para encontrar el flujo máximo podemos usar el algoritmo de Ford-Fulkerson o cualquier otro algoritmo de flujo máximo. \vspace{.2cm}
 \end{quote}
