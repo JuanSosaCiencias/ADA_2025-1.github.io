@@ -1,4 +1,24 @@
 \textbf{Monedas marcianas, 1, p, $p^2$, $\dots$, $p^k$, con $p>1$ y $k \geq 0$}\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Demostracion}
 \begin{quote}
+    Igualmente esta no va a salir pero es una induccion, se parece bastante al 1 porque son multiplos con buena distancia pero ocupo mas lineal para probarlo fuertemente, vamos a dejar a p fijo y k puede ser basicamente cualquier cosa que cumpla. \vspace{.2cm}
+
+    \textbf{Caso base:} $n=1$ \vspace{.2cm}
+
+    Si el monto es de 1 moneda, entonces el algoritmo va a devolver 1 moneda, claramente es optimo ya que es el unico camino posible. \vspace{.2cm}
+
+    \textbf{Hipótesis inductiva:} $m \leq n$ \vspace{.2cm}
+    
+    Supongamos que el algoritmo es optimo para $m \leq n$ monedas. \vspace{.2cm}
+
+    \textbf{Paso inductivo:} $n+1$ \vspace{.2cm}
+
+    \begin{itemize}
+        \item El algoritmo selecciona la moneda de mayor valor que no exceda el monto restante. Sea esta moneda $p^i$ con $0 \leq i \leq k$ y $p^i \leq n+1$. 
+        \item Tras seleccionar esa moneda el monto restante es $n+1-p^i$, con $0 \leq r \leq p^i$.
+        \item Por hipótesis inductiva, el algoritmo es optimo para $r \leq n$ monedas.
+    \end{itemize}
+
+    No se muy bien como formalizar que el algoritmo es optimo, esencialmente como tenemos que $p^{i+1}=p^i * p$ entonces si no elegimos la moneda mas grande para igualar su valor habra que elegir al menos $p$ monedas de $p^i$ para igualar su valor, lo cual es peor que elegir una sola moneda de $p^{i+1}$. En este caso la solucion optima contiene soluciones optimas de subproblemas.. \vspace{.2cm}
 \end{quote}

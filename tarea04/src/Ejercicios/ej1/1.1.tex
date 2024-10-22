@@ -2,5 +2,33 @@
 
 \textcolor{bibi}{Demostración}
 \begin{quote}
-    Escencialmente lo que quiero demostrar es que el sistema de monedas de Estados Unidos es un sistema canónico. 
+    Seguramente no me va a salir porque demostrar que un algoritmo greedy funciona no es tan sencillo. Pero vamos a intentarlo. \vspace{.2cm}
+    
+    Voy a basar esta demostracion en la "Guide to Greedy Algorithms" de la Universidad de Stanford para la clase CS161 del 2013; basicamente podemos intentar la prueba por "Greedy Stays Ahead" que basicamente es probar que nuestro algoritmo es al menos tan bueno como el optimo o podemos intentarlo con "Exchange Argument" que es probar que podemos transformar cualquier solucion optima en la solucion que conseguimos con nuestro algoritmo. \vspace{.2cm}
+    
+    En este caso, vamos a intentar con "Greedy Stays Ahead", comienza definiendo mi solucion, voy a llamar a $G=<g_1,g_2,g_3,g_4,g_5>$ como la solucion que encuentra mi algoritmo greedy siendo cada uno de los $g_i$ la cantidad de monedas de esa denominación que se necesitan para dar el cambio, por otro lado voy a definir  $O=<o_1,o_2,o_3,o_4,o_5>$ como la solucion optima, siendo cada uno de los $o_i$ la cantidad de monedas de esa denominación que se necesitan para dar el cambio, la idea es demostrar que $|G| \leq |O|$ o dicho de otra forma que la suma de cada una de sus coordenadas es menor o igual a la suma de las coordenadas de $O$. \vspace{.2cm}
+
+    Ahora se viene lo chido, tenemos que demostrar que nuestro algoritmo siempre se queda adelante (o dicho de mejor manera al menos no se queda atras) vamos a hacer una pseudoinduccion para demostrarlo. \vspace{.2cm}
+
+    Vamos a comenzar la induccion, sobre el tamaño de la solucion, es claro que si tenemos $n \leq 4$ entonces nuestro algoritmo greedy es optimo, ya que solo puede tomar 4 monedas de uno a lo mas, la solucion optima no puede ser mejor que eso, es decir $g_1 \leq o_1$ \vspace{.2cm}
+
+    Ahora si $ 5 \leq n \leq 9$ nuestro algoritmo greedy comenzara por restarle una de 5, y tras esto se quedara con un problema de tamaño a lo mas 4, por lo que por hipotesis de induccion sabemos que nuestro algoritmo greedy es optimo, esto es, $g_2 \leq o_2$. \vspace{.2cm}
+
+    Si $10 \leq n \leq 14$ nuestro algoritmo greedy comenzara por restarle una de 10, y tras esto se quedara con un problema de tamaño a lo mas 4, por lo que por hipotesis de induccion sabemos que nuestro algoritmo greedy es optimo, esto es, $g_3 \leq o_3$. \vspace{.2cm}
+
+    Si $15 \leq n \leq 19$ nuestro algoritmo greedy comenzara por restarle una de 10 y una de 5, y tras esto se quedara con un problema de tamaño a lo mas 4, por lo que por hipotesis de induccion sabemos que nuestro algoritmo greedy es optimo, esto es, $g_3 \leq o_3$. \vspace{.2cm}
+
+    Si $20 \leq n \leq 24$ nuestro algoritmo greedy comenzara por restarle 2 de 10 y se quedara con un problema de tamaño a lo mas 4, por lo que por hipotesis de induccion sabemos que nuestro algoritmo greedy es optimo, esto es, $g_3 \leq o_3$. \vspace{.2cm} 
+
+    Si $25 \leq n \leq 29$ nuestro algoritmo greedy comenzara por restarle una de 25 y se quedara con un problema de tamaño a lo mas 4, por lo que por hipotesis de induccion sabemos que nuestro algoritmo greedy es optimo, esto es, $g_4 \leq o_4$. \vspace{.2cm}
+
+    Lo mismo pasara para casos hasta llegar a 49 (49-25=24 que ya es un caso anterior y es optimo), es decir caera en uno de los casos anteriores, todo eso para demostrar que $g_4 \leq o_4$. \vspace{.2cm}
+
+    Finalmente si $50 \leq n$ nuestro algoritmo greedy comenzara por restarle k monedas de 50, y se quedara con algun subproblema de tamaño a lo mas 49, por lo que por hipotesis de induccion sabemos que nuestro algoritmo greedy es optimo, esto es, $g_5 \leq o_5$. \vspace{.2cm}
+
+    Importante para este paso es notar que al ser multiplos unos de otros muchos casos en realidad son medio redundantes, sabemos que si algo le podemos restar una de 50 entonces le podemos restar 2 de 25, 5 de 10, 10 de 5 o 50 de 1, pero para cada una de estas otras soluciones se pasan en cantidad de monedas, cosa que voy a mostrar no pasa siempre, ademas una solucion optima del problema contiene solucioens optimas de sus subproblemas. \vspace{.2cm} 
+
+    Ahora si vamos a demostrar que es optimo, para ello vamos a intentarlo por contradiccion: \vspace{.2cm}
+
+    Digamos que $|G| > |O|$ esto pasaria si solo si $ \exists g_i > o_i$ para algun $i$, sin embargo, como mostramos arriba nuestro algoritmo greedy siempre se queda adelante (o mas bien no se queda atras) por lo que esto no puede pasar, por lo que $|G| \leq |O|$ y por lo tanto nuestro algoritmo greedy es optimo. \vspace{.2cm}
 \end{quote}
