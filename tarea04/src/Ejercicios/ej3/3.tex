@@ -9,6 +9,16 @@
     Diseñe un algoritmo eficiente para encontrar si es que existe
     una ruta segura desde el poste $p_s$ al poste $p_t$.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Crear grafo con ordenamiento y BB}
 \begin{quote}
+    La primera idea es que vamos a querer un grafo que vaya conectando en base a la condicion de distancias, pero lo vamos a hacer con cuidado. \vspace{.2cm}
+
+    Lo primero que vamos a hacer es ordenar a nuestros puntos por coordenada x, esto nos va a permitir que al buscar aquellos que cumplan la condicion de distancia no tengamos que buscar a todos si no a una fraccion lineal de n, conseguir esta lista ordenada toma $O(n \ log n)$ \vspace{.2cm}
+
+    Ahora vamos a crear un grafo con n nodos, cada nodo va a ser conectado si sigue la condicion de distancia con otro nodo, pero tambien tenemos la lista ordenada por x lo que nos permite que no tengamos que comparar a todas las parejas si no comenzando desde el nodo actual hasta aquellos que cumplan la condicion de distancia, por tanto digamos si estamos checando el nodo $p_5$ en la lista ordenada y vemos que el $p_6$ ya tiene distancia mayor a $2d$ entonces no tiene sentido seguir buscando, en el resto, en escencia estamos haciendo una busqueda binaria en la lista ordenada, ademas usas la otra reestriccion de que la distancia debe ser mayor a $d$ para acortar de ambos lados, como es BB y tiene que hacerlo con 2 reestricciones es $2 \ log n$, con n nodos entonces hacemos esto $O(n \ log n)$ para este paso. \vspace{.2cm}
+
+    Ahora tenemos que buscar el camino, esto es relativamente sencillo ya que podemos hacer un BFS, sobre el grafo que creamos, si es que encontramos un camino que llegue al nodo $p_t$ entonces si existe un camino seguro, si no entonces no existe, el BFS toma $O(|E|+|V|)$ sustituyendo sabiendo que $|E| \leq n^2$ (esto es claro si lo piensas porque si un vertice ya tiene $n^2-1$ vecinos estos a su vez no pueden todos tener un numero cuadratico de vecinos pues necesitan mantenerse a la distancia pefecta del primer vertice y del resto entre todos) y $|V| \in O(n)$ entonces el BFS toma $O(n)$ \vspace{.2cm}
+
+    Por lo tanto el algoritmo toma $O(n \ log n)$ \vspace{.2cm}
 \end{quote}
