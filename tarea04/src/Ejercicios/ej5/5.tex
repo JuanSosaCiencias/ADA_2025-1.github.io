@@ -8,6 +8,23 @@
     distintas (a $c_1$ y a $c_n$). Justique su respuesta.
 }
 \vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{PD con Floyd Warshall.}
 \begin{quote}
+    Yo habia hecho un algorritmo bonito usando una matriz adicional de tamaño $n \times k$ en donde iba poniendo la distancia mínima de $c_1$ a $c_i$ pasando por $j$ ciudades, pero encontre Floyd Warshall y creo que funciona mejor. \vspace{.2cm}
+
+    Ya tenemos la matriz $D=dist[i][j][0]$ donde $dist[i][j][0]$ es la distancia de $c_i$ a $c_j$ sin pasar por ninguna ciudad (si se considera la ciudad inicial como 1 entonces haremos solo hasta llegar a dist[i][j][k-1]). \vspace{.2cm}
+    
+    Ahora, para cada $t$ de 1 a $k$ (o hasta $k-1$ si se considera la ciudad inicial como 1) haremos lo siguiente: 
+    \begin{align*}
+        dist[i][j][t] = \min(dist[i][j][t], dist[i][l][t-1] + dist[l][j][t-1])
+    \end{align*}
+
+    Esto esta como curiosito pero lo que estamos haciendo es considerar el camino mas corto desde $c_i$ a $c_j$ pasando por $t$ ciudades intermedias y ver si es mejor que el camino mas corto que ya teniamos. \vspace{.2cm}
+
+    Escencialmente estamos encontrando el camino mas corto entre todos los pares de vertices cuya longitud es a lo mas $k$. \vspace{.2cm}
+
+    El algoritmo de Floyd Warshall tiene complejidad $O(n^3)$ esto pues tiene 3 ciclos anidados, el primero recorre con t de 1 a $k$, que en el peor caso es $n$, el segundo recorre usando i e itera sobre todos los vertices, finalmente el tercer bucle recorre usando j e itera sobre todos los vertices, esto no es terrible pues estamos pidiendo mas de lo que pedimos usualmente y por ejemplo Dijkstra tiene complejidad $O(n^2 \log n)$ en el peor caso aun sin considerar el $k$.
+
+    Para recuperar el camino podemos ir guardando ademas del peso de la arista que nos lleva a $j$ desde $l$ en la matriz $dist$ tambien el vertice $l$ que nos lleva a $j$ desde $l$ y asi podemos reconstruir el camino.
 \end{quote}
