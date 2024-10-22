@@ -1,17 +1,20 @@
 \textbf{
-    El juego "sube y baja" tiene un tablero de n celdas, donde
-    se busca viajar de la celda 1 a la celda n. Para moverse, un
-    jugador lanza un dado de seis caras para determinar cuántas celdas 
-    debe avanzar. Este tablero también contiene rampas y escaleras que
-    conectan ciertos pares de celdas. Un jugador que cae en una rampa 
-    cae inmediatamente a la celda en el otro extremo. Un jugador que 
-    cae en una escalera viaja inmediatamente hasta la celda en la parte 
-    superior de la escalera. Suponga que ha manipulado el dado para que 
-    tenga el control total del número de cada lanzamiento. Proporciona un
-    algoritmo eficiente para encontrar el mínimo número de lanzamientos de
-    dados para ganar.
+    El juego "sube y baja" tiene un tablero de n celdas, donde se busca viajar de la celda 1 a la celda n. Para moverse, un jugador lanza un dado de seis caras para determinar cuántas celdas debe avanzar. Este tablero también contiene rampas y escaleras que conectan ciertos pares de celdas. Un jugador que cae en una rampa cae inmediatamente a la celda en el otro extremo. Un jugador que  cae en una escalera viaja inmediatamente hasta la celda en la parte superior de la escalera. Suponga que ha manipulado el dado para que tenga el control total del número de cada lanzamiento. Proporciona un algoritmo eficiente para encontrar el mínimo número de lanzamientos de dados para ganar.
 }\vspace{.2cm}
-\textcolor{bibi}{}
+
+\textcolor{bibi}{Usando BFS}
 \begin{quote}
-    checa el 36
+    Aunque queria usar un algoritmo gloton la verdad es que no creo que sea conveniente, por ejemplo si tenemos en un turno una escalera muy grande, ignoramos el resto de posibilidades y la usamos, pero esta nos puede dejar en un lugar peor, por ejemplo digamos que puedes subir mucho si tiras 1 y en el resto normal, digamos que subes a la mitad, el greedy lo toma y en ese nivel solo hay normal hasta el final, en cambio en el primer nivel si tirabas 2 veces 6 habia una escalera que te llevaba al final, ya no puedes acceder a esta mas que si tiras otros 11 en el greedy. \vspace{.2cm}
+
+    Otra alternativa a considerar seria ordenar las escaleras y rampas de mayor a menor y de menor a mayor respectivamente, aunque esto quizas lleve a la solucion optima, no tiene tan buena complejidad, piensa que si por ejemplo hay n escaleras por nivel de tamaño 1, el ordenarlas nos llevaria a una complejidad de $O(n(n \ logn))= O(n^2 \ logn) $ pues en cada nivel ordenas las escaleras (podrias mejorar esto si solo ordenas las que estan adelante pero me parece sigue quedandose en cuadratico en el peor caso entonces mejor ir a la segura). \vspace{.2cm}
+
+    Por lo tanto la mejor opcion es usar BFS, pues este nos garantiza la solucion optima, ademas podemos terminar antes si llegamos al final, pues el BFS nos garantiza que si llegamos al final lo hacemos en el menor numero de pasos posibles. \vspace{.2cm}
+
+    Ahora para esto, podemos usar un grafo, podriamos hacerlo sin el pero es mas simple, cada celda $i$ del tablero es un nodo y desde cada celda $i$ podemos llegar a $i+1,i+2,i+3,i+4,i+5,i+6$ si no hay escaleras o rampas, si las hay, entonces desde $i$ podemos llegar a la celda a la que nos lleva la escalera o rampa. \vspace{.2cm}
+
+    Ahora pasar de una celda a otra (nodo a nodo) tiene un costo fijo de 1 lanzamiento de dado, por lo que podemos usar BFS para encontrar el camino mas corto, usando una cola para realizarlo, empezamos en la celda 1, aparte de la cola usamos un arreglo de visitados, para no volver a visitar una celda (aqui no hay pesos entonces no importa si ya pudimos llegar) vamos marcando celdas por lo mismo, aqui mismo podemos ir guardando la cantidad de tiros que nos costo llegar a este nodo. \vspace{.2cm}
+
+    El BFS trabaja por niveles, su complejidad es de $O(|V|+|E|)$ en este caso sabemos que la cantidad de vertices es $n \times n$ pues es un tablero de $n$ celdas y cada celda puede tener a lo mucho 6 vecinos, por lo que $|V| \in O(n^2)$ y $|E| \in O(n^2)$, por lo que la complejidad del BFS es $O(n^2+n^2)=O(n^2)$, por lo que es relativamente eficiente. \vspace{.2cm}
+
+    Funciona porque creamos un grafico no ponderado que simula el tablero, y BFS nos da el camino explorando rutas mas cortas primero (rutas con menos lanzamientos). \vspace{.2cm}
 \end{quote}
