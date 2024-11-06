@@ -1,5 +1,280 @@
 \textbf{Sea $T$ un árbol con raíz con $n$ vértices. Cada nodo $v$ tiene asociado un peso $w(v)$. Utilizando programación dinámica, encuentre un algoritmo de tiempo lineal para encontrar el conjunto independiente de $T$ de peso máximo.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Este problema se asemeja bastante al problema 3 de la tarea 3 asi que lo vamos a abordar de manera similar. (reutilice algunos de los diagramas que hice porque me quedaron bonitos) \vspace{.2cm}
+
+\textbf{Aclaraciones:}
+\begin{itemize}
+    \item Solo vamos a considerar pesos positivos.
+    \item El arból puede o no ser binario.
+    \item Solo vamos a considerar arrboles con mas de 2 nodos pues si no el problema es trivial. (aunque el algoritmo que vamos a presentar funciona para arboles para todo $n$)
+\end{itemize}
+
+La idea es utilizar el arbol que ya existe, agregarle informacion y recorerlo de manear eficiente.
+
+\textcolor{bibi}{Usando DP en el arból}
 \begin{quote}
+    Lo que vamos a intentar es considerar a un nodo y sus hijos para ver si nos conviene tomarlo o no. Comenzamos por los nodos mas faciles de analizar, las hojas. Si un nodo es hoja, entonces el conjunto independiente de peso maximo que lo contiene es el mismo nodo. \vspace{.2cm}
+
+    Vamos a utilizar un recorrido postorden paa recorrer el arbol. De manera que procesamos primero a los hijos de un nodo antes de procesar al nodo en si, este recorrido tiene complejidad $O(n)$.\vspace{.2cm}
+
+    Ahora, en cada nodo vamos a agregarle información, para ello vamos a usar 2 funciones que se pueden describir asi: \vspace{.2cm}
+    \begin{itemize}
+        \item \textbf{Incluir:} Si incluimos al nodo en el conjunto, entonces sus hijos no pueden ir. Esto se ve asi:
+        \begin{align*}
+            \text{Incluir}(nodo) = peso(nodo) +\sum_{h \in hijos} \text{excluir}(h)
+        \end{align*}
+        \item \textbf{Excluir:} Si excluimos al nodo del conjunto, entonces podemos o no incluir a sus hijos. Esto se ve asi: 
+        \begin{align*}
+            \text{Excluir}(nodo) = \sum_{h \in hijos} \max\{\text{incluir}(h), \text{excluir}(h)\}
+        \end{align*}
+    \end{itemize}
+
+    Ademas de estas funciones, vamos a agregar la base de la recurrencia, como ya dijimos cuando un nodo es hoja no tiene restricciones, por lo que podemos definir las funciones asi: \vspace{.2cm}
+    \begin{align*}
+        \text{incluir}(nodo) &= peso(nodo) \\
+        \text{excluir}(nodo) &= 0
+    \end{align*}
+
+    Adicionalmente, si queremos considerar negativos (aunque ya lo resuelve) podemos decir que si un valor es negativo simplemente no lo agregamos. \vspace{.2cm}
+
+    Entonces para cada nodo, empezando por las hojas agregamos esta información y recuperamos la información de sus hijos para poder calcular la información del nodo padre. \vspace{.2cm}
+
+    Entonces el arbol se va a ir llenando algo asi en el recorrido: \vspace{.2cm}
+
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.55\textwidth}{!}{%  
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\large]
+                \draw  (5,6.5) circle (0cm);
+                \draw  (5,6.5) circle (0.5cm) node {\LARGE 3} ;
+                \draw  (7.5,6.5) circle (0.5cm) node {\LARGE 2} ;
+                \draw  (10,6.5) circle (0.5cm) node {\LARGE 1} ;
+                \draw  (12.5,6.5) circle (0.5cm) node {\LARGE \textbf{5}} ;
+                \draw  (7.5,9) circle (0.5cm) node {\LARGE \textbf{6}} ;
+                \draw  (12.5,9) circle (0.5cm) node {\LARGE \textbf{5}} ;
+                \node [font=\LARGE] at (8,8.5) {};
+                \draw  (7.5,11.5) circle (0.5cm) node {\LARGE \textbf{6}} ;
+                \draw  (15,9) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (17.5,9) circle (0.5cm) node {\LARGE \textbf{0}} ;
+                \draw  (16.25,11.5) circle (0.5cm) node {\LARGE \textbf{8}} ;
+                \draw  (12.5,11.25) circle (0.5cm) node {\LARGE \textbf{7}} ;
+                \draw  (12.5,14) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (13.75,16.5) circle (0.5cm) node {\LARGE \textbf{30}} ;
+                \draw  (10,14) circle (0.5cm) node {\LARGE \textbf{0}} ;
+                \draw  (15,14) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (17.75,14) circle (0.5cm) node {\LARGE \textbf{2}} ;
+                \draw [short] (5,6.5) -- (7.5,9);
+                \draw [short] (7.5,6.5) -- (7.5,9);
+                \draw [short] (10,6.5) -- (7.5,9);
+                \draw [short] (12.5,6.5) -- (12.5,9);
+                \draw [short] (12.5,9) -- (12.5,11.25);
+                \draw [short] (12.5,11.25) -- (12.5,14);
+                \draw [short] (12.5,14) -- (13.75,16.5);
+                \draw [short] (7.5,9) -- (7.5,11.5);
+                \draw [short] (7.5,11.5) -- (10,14);
+                \draw [short] (10,14) -- (13.75,16.5);
+                \draw [short] (15,9) -- (16.25,11.5);
+                \draw [short] (17.5,9) -- (16.25,11.5);
+                \draw [short] (16.25,11.5) -- (15,14);
+                \draw [short] (15,14) -- (13.75,16.5);
+                \draw [short] (17.75,14) -- (13.75,16.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13,16.75) .. controls (5.25,14.5) and (6,13.75) .. (5.25,7.25) ;
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (5.75,6.5) -- (7,6.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (10.25,7.25) -- (8.25,9);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (8.25,6.5) -- (9.5,6.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (8.25,11.75) -- (9.75,13.25);
+                \node [font=\LARGE, color={rgb,255:red,255; green,0; blue,0}] at (17,4.75) {\textbf{}};
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (8,9.5) -- (8,11);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (18.25,14.75) -- (14.5,16.75);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (10.25,13.25) -- (12,7.25);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,6.75) -- (13.25,8.5);
+                \node [font=\LARGE, color={rgb,255:red,255; green,0; blue,0}] at (13.5,7) {\textbf{}};
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,9.25) -- (13.25,11);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,11.75) -- (13.25,13.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,14) -- (14.75,10);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (15.75,9) -- (17,9);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (17.75,9.75) -- (17,11.25);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (16.5,12.25) -- (15.75,13.75);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (15.75,14) -- (17,14);
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (5,5.5) {[incluir, excluir]};
+                \end{circuitikz}
+                }%
+            
+            \label{fig:arbolFiesta1}
+        \end{figure}
+    \end{center}
+
+    \vspace{-1.2cm}
+    Seguimos el camino rojo y para cada nodo vamos calculando sus 2 valores, esto sucede en a lo mas O(n) pues cada nodo puede tener a lo mas n-1 hijos. (las funciones de incluir y excluir tienen que checar a todos sus hijos) pero en el caso de las hojas y en general cuando tienen una cantidad razonable de hijos (hijos "constantes" relativo a n) se hace en O(1).\vspace{.2cm}
+
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.55\textwidth}{!}{%  
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\large]
+                \draw  (5,6.5) circle (0cm);
+                \draw  (5,6.5) circle (0.5cm) node {\LARGE 3} ;
+                \draw  (7.5,6.5) circle (0.5cm) node {\LARGE 2} ;
+                \draw  (10,6.5) circle (0.5cm) node {\LARGE 1} ;
+                \draw  (12.5,6.5) circle (0.5cm) node {\LARGE \textbf{5}} ;
+                \draw  (7.5,9) circle (0.5cm) node {\LARGE \textbf{6}} ;
+                \draw  (12.5,9) circle (0.5cm) node {\LARGE \textbf{5}} ;
+                \node [font=\LARGE] at (8,8.5) {};
+                \draw  (7.5,11.5) circle (0.5cm) node {\LARGE \textbf{6}} ;
+                \draw  (15,9) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (17.5,9) circle (0.5cm) node {\LARGE \textbf{0}} ;
+                \draw  (16.25,11.5) circle (0.5cm) node {\LARGE \textbf{8}} ;
+                \draw  (12.5,11.25) circle (0.5cm) node {\LARGE \textbf{7}} ;
+                \draw  (12.5,14) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (13.75,16.5) circle (0.5cm) node {\LARGE \textbf{30}} ;
+                \draw  (10,14) circle (0.5cm) node {\LARGE \textbf{0}} ;
+                \draw  (15,14) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (17.75,14) circle (0.5cm) node {\LARGE \textbf{2}} ;
+                \draw [short] (5,6.5) -- (7.5,9);
+                \draw [short] (7.5,6.5) -- (7.5,9);
+                \draw [short] (10,6.5) -- (7.5,9);
+                \draw [short] (12.5,6.5) -- (12.5,9);
+                \draw [short] (12.5,9) -- (12.5,11.25);
+                \draw [short] (12.5,11.25) -- (12.5,14);
+                \draw [short] (12.5,14) -- (13.75,16.5);
+                \draw [short] (7.5,9) -- (7.5,11.5);
+                \draw [short] (7.5,11.5) -- (10,14);
+                \draw [short] (10,14) -- (13.75,16.5);
+                \draw [short] (15,9) -- (16.25,11.5);
+                \draw [short] (17.5,9) -- (16.25,11.5);
+                \draw [short] (16.25,11.5) -- (15,14);
+                \draw [short] (15,14) -- (13.75,16.5);
+                \draw [short] (17.75,14) -- (13.75,16.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13,16.75) .. controls (5.25,14.5) and (6,13.75) .. (5.25,7.25) ;
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (5.75,6.5) -- (7,6.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (10.25,7.25) -- (8.25,9);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (8.25,6.5) -- (9.5,6.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (8.25,11.75) -- (9.75,13.25);
+                \node [font=\LARGE, color={rgb,255:red,255; green,0; blue,0}] at (17,4.75) {\textbf{}};
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (8,9.5) -- (8,11);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (18,14.75) -- (14.5,16.75);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (10.25,13.25) -- (12,7.25);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,6.75) -- (13.25,8.5);
+                \node [font=\LARGE, color={rgb,255:red,255; green,0; blue,0}] at (13.5,7) {\textbf{}};
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,9.25) -- (13.25,11);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,11.75) -- (13.25,13.5);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (13.25,14) -- (14.75,10);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (15.75,9) -- (17,9);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (17.75,9.75) -- (17,11.25);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (16.5,12.25) -- (15.75,13.75);
+                \draw [ color={rgb,255:red,255; green,0; blue,0}, ->, >=Stealth] (15.75,14) -- (17,14);
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (5,17.25) {[incluir, excluir]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (4.75,5.5) {[3, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (7.5,5.5) {[2, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (10,5.5) {[1, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (9.5,9.25) {[6, 6]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (9,11.5) {[12, 6]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (10,15) {[6, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (12.5,5.5) {[5, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (11.75,10) {[5, 5]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (11.5,12) {[12, 5]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (11.5,13.25) {[17, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (15,8) {[12, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (17.75,8) {[0, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (17.5,12) {[8, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (14.5,13) {[24, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (18.25,13.25) {[2, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (13.75,17.5) {[66, 55]};
+                \end{circuitikz}
+            }%
+            \label{fig:arbolFiesta2}
+        \end{figure}
+    \end{center}
+
+    \vspace{-1.2cm}
+
+    De aqui ya podremos decir cual sera el peso maximo, pero el problema nos pide el conjunto independiente, asi que vamos a crearlo, para ello vamos a hacer un recorrido bfs para checar por nivel si un nodo es incluido o no, si es incluido no tenemos que cehcar a sus hijos, solo habria que checar a sus nietos, si un valor da igual podemos decidir si incluirlo o no. \vspace{.2cm}
+
+    Esto nos puede quedar algo asi: \vspace{.2cm}
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.55\textwidth}{!}{%  
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\LARGE]
+                \draw  (5,6.5) circle (0cm);
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (5,6.5) circle (0.5cm) node {\LARGE 3} ;
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (7.5,6.5) circle (0.5cm) node {\LARGE 2} ;
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (10,6.5) circle (0.5cm) node {\LARGE 1} ;
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (12.5,6.5) circle (0.5cm) node {\LARGE \textbf{5}} ;
+                \draw  (7.5,9) circle (0.5cm) node {\LARGE \textbf{6}} ;
+                \draw  (12.5,9) circle (0.5cm) node {\LARGE \textbf{5}} ;
+                \node [font=\LARGE] at (8,8.5) {};
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (7.5,11.5) circle (0.5cm) node {\LARGE \textbf{6}} ;
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (15,9) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw [ color={rgb,255:red,255; green,255; blue,0} ] (17.5,9) circle (0.5cm) node {\LARGE \textbf{0}} ;
+                \draw  (16.5,11.25) circle (0.5cm) node {\LARGE \textbf{8}} ;
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (12.5,11.25) circle (0.5cm) node {\LARGE \textbf{7}} ;
+                \draw  (12.5,14) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw [ color={rgb,255:red,0; green,255; blue,0} ] (13.75,16.5) circle (0.5cm) node {\LARGE \textbf{30}} ;
+                \draw  (10,14) circle (0.5cm) node {\LARGE \textbf{0}} ;
+                \draw  (15,14) circle (0.5cm) node {\LARGE \textbf{12}} ;
+                \draw  (17.75,14) circle (0.5cm) node {\LARGE \textbf{2}} ;
+                \draw [short] (5,6.5) -- (7.5,9);
+                \draw [short] (7.5,6.5) -- (7.5,9);
+                \draw [short] (10,6.5) -- (7.5,9);
+                \draw [short] (12.5,6.5) -- (12.5,9);
+                \draw [short] (12.5,9) -- (12.5,11.25);
+                \draw [short] (12.5,11.25) -- (12.5,14);
+                \draw [short] (12.5,14) -- (13.75,16.5);
+                \draw [short] (7.5,9) -- (7.5,11.5);
+                \draw [short] (7.5,11.5) -- (10,14);
+                \draw [short] (10,14) -- (13.75,16.5);
+                \draw [short] (15,9) -- (16.5,11.25);
+                \draw [short] (17.75,9) -- (16.5,11.5);
+                \draw [short] (16.5,11.5) -- (15,14);
+                \draw [short] (15,14) -- (13.75,16.5);
+                \draw [short] (17.75,14) -- (13.75,16.5);
+                \node [font=\LARGE, color={rgb,255:red,255; green,0; blue,0}] at (17,4.75) {\textbf{}};
+                \node [font=\LARGE, color={rgb,255:red,255; green,0; blue,0}] at (13.5,7) {\textbf{}};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (5,17.25) {[incluir, excluir]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (4.75,5.5) {[3, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (7.5,5.5) {[2, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (10,5.5) {[1, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (9.5,9.25) {[6, 6]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (9,11.5) {[12, 6]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (10,15) {[6, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (12.5,5.5) {[5, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (11.75,10) {[5, 5]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (11.5,12) {[12, 5]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (11.5,13.25) {[17, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (15,8) {[12, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (17.75,8) {[0, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (17.5,12) {[8, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (14.5,13) {[24, 12]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (18.25,13.25) {[2, 0]};
+                \node [font=\large, color={rgb,255:red,255; green,0; blue,0}] at (13.75,17.5) {[66, 55]};
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (13.25,15.75) -- (8.25,11.75);
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (8,11) -- (11.75,11);
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (13.25,11) -- (15.75,11);
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (16.5,10.5) -- (15.75,9.5);
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (5.75,6.5) -- (6.75,6.5);
+                \node [font=\LARGE, color={rgb,255:red,0; green,0; blue,255}] at (6.75,6) {\textbf{}};
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (8.25,6.5) -- (9.25,6.5);
+                \node [font=\LARGE, color={rgb,255:red,0; green,0; blue,255}] at (16.75,9.5) {\textbf{}};
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (16,9) -- (16.75,9);
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (16.75,8.5) -- (5.75,7);
+                \draw [ color={rgb,255:red,0; green,0; blue,255}, ->, >=Stealth] (10.75,6.5) -- (11.75,6.5);
+                \end{circuitikz}
+            }%
+            \label{fig:arbolFiesta3}
+        \end{figure}
+    \end{center}
+
+    \vspace{-1.2cm}
+
+    El camino azul nos dice cuales tenemos que verificar pero hay que recalcar que todos los nodos entran a la fila en algun momento aunque sea para meter a sus hijos, por lo que la complejidad de este paso es O(n) (bfs usualmente es la suma de aristas y vertices pero en arboles tenemos n-1 aristas). \vspace{.2cm}
+
+    Los nodos que agregamos los pinte de verde pero podemos agregarlos a una lista y los que excluyo son o hijos de incluidos o nodos cuyo valor de excluir es mayor que el de incluir y no quedan coloreados (o incluidos). \vspace{.2cm}
+
+    En total entonces el algoritmo tiene complejidad de recorrer el arbol con un recorrido postorden, agregar informacion por cada nodo mas el recorrerlo con bfs, o lo que es lo mismo O(n)*O(1) + O(n) = O(n) y el espacio adicional es O(n) para guardar la lista de nodos que vamos a incluir. (notemos que en el caso de que un nodo tiene muchos hijos estos a su vez ya no pueden tener muchos hijos). \vspace{.2cm}
+
 \end{quote}
