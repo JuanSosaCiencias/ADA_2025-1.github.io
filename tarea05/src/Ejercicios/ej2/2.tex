@@ -1,5 +1,17 @@
-\textbf{Give an $O(n log k)$-time algorithm which merges $k$ sorted lists with a total of $n$ elements into one sorted list. (Hint: use a heap to speed up the elementary $O(kn)$-time algorithm).}\vspace{.2cm}
+\textbf{Give an $O(n \ log \ k)$-time algorithm which merges $k$ sorted lists with a total of $n$ elements into one sorted list. (Hint: use a heap to speed up the elementary $O(kn)$-time algorithm).}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Voy a asumir que el problema quiere juntar "k" listas ya ordenadas por separado en una lista ordenada y no se refiere a que las listas estan k-ordenadas y se quieren juntar en una sola lista ordenada. \vspace{.2cm}
+
+\textcolor{bibi}{Usando un monticulo minimo}
 \begin{quote}
+    La idea es utilizar un min heap para que, en cada paso siempre extraemos el elemento mas chico lo que evidentemente resultara en una lista ordenada de $n$ elementos. \vspace{.2cm}
+
+    Lo primero es crear el heap, como las listas ya estan ordenadas y buscamos solo el mas chico, es suficiente con tener el primer elemento de cada lista en nuestro heap, esto se puede hacer en $O(k  \ log \ k)$ tiempo (insertar k nodos con cada inserción tomando a lo mas log k pues el monticulo tiene k nodos). \vspace{.2cm}
+
+    No creo que sea necesario explicar como funciona un min heap porque eso es mas de EDD pero tiene como propiedad que ira acomodando los nodos de forma ascendente basandose en sus valores. \vspace{.2cm}
+
+    Ahora para la creación de la lista, tomamos el primer elemento del heap, lo agregamos a la lista y lo eliminamos del heap, si el nodo que agregamos a la lista tenía un nodo siguiente en su lista de origen, habrá que agregarlo al heap, podremos acabar cuando el heap este vacío. \vspace{.2cm}
+
+    Ahora, como ya mencionamos el heap en cualquier momento sera de tamaño a lo mas k (el elemento mas pequeño que estamos procesando de cada lista) por lo que la complejidad en espacio será de $O(k)$, ademas, insertar en este heap toma $O(log \ k)$ tiempo y vamos a insertar en total $n$ nodos por lo que la complejidad en tiempo sera de $O(n \ log \ k)$ (notese que $n \geq k$ si una lista es vacia ni la consideramos).
+    \vspace{.2cm}
 \end{quote}
