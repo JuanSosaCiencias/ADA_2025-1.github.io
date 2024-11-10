@@ -1,5 +1,12 @@
 \textbf{¿Se puede mejorar el inciso anterior? Si es el caso, muestre el algoritmo, sino explique por qué.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Si se puede mejorar, como ya notamos, para maximizar el producto es suficiente con considerar los dos extremos del arreglo ordenado. Lo que es lo mismo, encontrar los 2 maximos y 2 minimos, que ya mostramos se puede hacer en tiempo lineal en otra tarea. \vspace{.2cm}
+
+\textcolor{bibi}{Minimos y maximos}
 \begin{quote}
+    En otra tarea nos pedian minimizar la cantidad de comparaciones para encontrar el minimo y maximo de un arreglo. La solución a ese problema se hacia con heaps y se lograba en algo asi como $3n/2 + k$ o algo asi pero aqui no importa la cantidad de comparaciones si no el tiempo de ejecucion del algoritmo. \vspace{.2cm}
+
+    Entonces la idea es bastante mas sencilla, vamos a recorrer el arreglo y para cada elemento vamos a comprarlo con los 2 maximos y 2 minimos (en el peor caso) que ya tenemos guardados. Algo asi como ver si es mayor que el maximo maximo si lo es ahora guardamos ahi el nuevo maximo maximo y el antiguo maximo maximo pasa a ser el nuevo maximo. En otro caso comparamos con el segundo maximo y si lo es lo guardamos, si no lo descartamos. Hacemos lo mismo con los minimos. Esto toma algo asi como $4n$ comparaciones y por lo tanto es $O(n)$. \vspace{.2cm}
+
+    Finalmente el producto de los dos maximos o el producto de los 2 minimos sera el mayor posible solo hay que compararlos. \vspace{.2cm}
 \end{quote}
