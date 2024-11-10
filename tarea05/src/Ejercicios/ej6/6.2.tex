@@ -1,5 +1,10 @@
 \textbf{What is a good strategy is $n$ is not known?}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Usando Busqueda Exponencial}
 \begin{quote}
+    La idea de la busqueda exponencial es primero encontrar un rango donde el numero se encuentre y luego hacer busqueda binaria en ese rango. Primero necesitamos encontrar un numero $k$ tal que $2^{k-1} < n \leq 2^k$. Luego hacemos busqueda binaria en el rango $[2^{k-1}, 2^k]$ para encontrar el número. \vspace{.2cm}
+
+    Para ser mas especificos, comenzamos con $i = 1$ y checamos si es o no mas grande que nuestro numero si no lo es entonces $i = 2i$ y repetimos el proceso hasta encontrar el que cumpla la desigualdad anterior o lleguemos a uno mas grande que n. Vemos que el rango se esta duplicando en cada paso lo que significa que estamos considerando exponencialmente mas valores en cada paso lo que nos garantiza encontrar el rango en $O(\log(n))$ tiempo. \vspace{.2cm}
+
+    Una vez que tengamos el rango, hacemos BB para encontrar el numero en $O(\log(n))$ tiempo. \vspace{.2cm}
 \end{quote}

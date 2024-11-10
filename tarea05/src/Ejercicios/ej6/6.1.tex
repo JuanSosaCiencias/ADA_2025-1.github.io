@@ -1,5 +1,8 @@
 \textbf{What is an optimal strategy if $n$ in known?}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Asumimos que se pueden hacer mas de 20 pregutnas porque si no es posible que el jugador 1 escoja un numero demasiado grande donde lo siguiente no funcionara. \vspace{.2cm}
+
+\textcolor{bibi}{Usando Busqueda Binaria}
 \begin{quote}
+    Como ya sabemos si conocemos el rango de valores sobre los cuales tenemos que buscar podemos usar busqueda binaria. La estrategia es ir diviendo el rango en mitades y ver de que lado esta el numero. Empezando con el rango $[1, n]$ y preguntando si el numero es mayor o menor a $n/2$. Si es mayor entonces el rango se convierte en $[n/2, n]$ y si es menor el rango se convierte en $[1, n/2]$. Repitiendo este proceso hasta que el rango sea de tamaño 1, esto se logra en $\log_2(n)$ tiempo en el peor caso. \vspace{.2cm}
 \end{quote}
