@@ -1,5 +1,40 @@
 \textbf{El intervalo común más largo de dos sucesiones $X$ y $Y$ , es un conjunto de elementos consecutivos de $X$ y $Y$ más largo que aparece en ambas sucesiones (ojo, no estamos hablando de la subsucesión común más larga). Por ejemplo, el intervalo común más largo de las sucesiones \textit{fotografía} y \textit{tomografía} es \textit{ografía}. Sean $n = |X|$ y $m = |Y|$. Encuentre un algoritmo que en $\Theta(nm)$ encuentre el intervalo común más largo de $X$ y $Y$.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{DP con matriz}
 \begin{quote}
+    Vamos a crear una matriz $dp$ de dimensiones $(n+1) \times (m+1)$, donde $dp[i][j]$ va a representar el tamaño del intervalo común más largo de $X[0..i-1]$ y $Y[0..j-1]$. Inicializamos la matriz con ceros. Luego, recorremos la matriz llenandola de la siguiente manera: 
+    \begin{align*}
+        dp[i][j] = \begin{cases}
+            0 & \text{si } i = 0 \text{ o } j = 0,\\
+            dp[i-1][j-1] + 1 & \text{si } X[i-1] = Y[j-1],\\
+            0 & \text{si } X[i-1] \neq Y[j-1].
+        \end{cases}
+    \end{align*}
+
+    Podemos ademas utilizar una variable para almacenar la posicion final del intervalo común más largo, y así poder reconstruirlo, ademas de otra para almacenar el tamaño del intervalo común más largo. La complejidad de este algoritmo es $\Theta(nm)$ ya que recorremos la matriz una sola vez. Funciona porque si encontramos que los caracteres de $X$ y $Y$ en la posición $i$ y $j$ son iguales, entonces el intervalo común más largo se extiende en uno, y si no son iguales, entonces el intervalo común más largo se rompe; la matriz garantiza que se busca en todas las posibles combinaciones de intervalos comunes. \vspace{.2cm}
+
+    \textbf{Ejemplo:} \vspace{.2cm}
+    \begin{table}[H]
+        \centering
+        \renewcommand{\arraystretch}{1.5}
+        \setlength{\tabcolsep}{8pt}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+            & & t & o & m & o & g & r & a & f & i & a \\ \hline
+          & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        f & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ \hline
+        o & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        t & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        o & 0 & 0 & 2 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        g & 0 & 0 & 0 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        r & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 0 & 0 & 0 & 0 \\ \hline
+        a & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 4 & 0 & 0 & 1 \\ \hline
+        f & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 \\ \hline
+        i & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 6 & 0 \\ \hline
+        a & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 7 \\ \hline
+        \end{tabular}
+        \caption{Matriz de programación dinámica para las secuencias "fotografía" y "tomografía".}
+    \end{table}
+
+    Si tenemos la variable $max$ que almacena el tamaño del intervalo común más largo, y la variable $end$ que tiene la posición final del intervalo, entonces en este ejemplo $max = 7$ y $end = 9$ (si contamos desde 0 en la palabra fotografía), entonces el intervalo común más largo es "ografía" construyendo desde la posición $end - max +1$ hasta $end$ en la palabra fotografía (se usa el +1 porque las palabras empiezan por la posición 0 pero la subcadena la contamos por cantidad osea desde 1). Aunque tambien se puede construir la subcadena buscando el indice mas grande en la matriz $dp$ y luego retrocediendo por la diagonal hasta encontrar un 0, y asi construir la subcadena. \vspace{.2cm} 
 \end{quote}
