@@ -1,5 +1,14 @@
-\textbf{Design a data structure that uses $O(n)$ space and answers queries in $O(log n)$ time.}\vspace{.2cm}
+\textbf{Design a data structure that uses $O(n)$ space and answers queries in $O(log \ n)$ time.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Segment Tree}
 \begin{quote}
+    La idea es usar un segment tree para guardar los minimos de los rangos. Comenzamos por dividir el arrreglo en subarrerglos, cada nodo en el segment tree representa el minimo de un intervalo en el arreglo original. (vamos a guardar 2 indices tambien para saber que intervalo cubre) \vspace{.2cm}
+
+    La raiz del arbol representa el rango completo $[1, n]$ y por tanto el minimo de todo el arreglo. Cada nodo tiene dos hijos que representan la mitad del rango del padre y tienen el minimo de ese rango. \vspace{.2cm}
+
+    El razonamiento del porque este arbol usa $O(n)$ espacio es que el rango se va partiendo a la mitad y por tanto el arbol tiene a lo mucho $2n$ nodos donde cada nodo solo guarda 3 numeros. (serie geometica con termino inicial n y razon $1/2$). \vspace{.2cm}
+
+    Para construir el arbol, tomamos el arreglo y lo dividimos en 2 partes, si no es de tamaño 1, llamamos recursivamente a la funcion para cada parte y guardamos el minimo de cada parte en el nodo actual la altura de este arbol sera de $O(\log \ n)$ y construirlo toma O(n). \vspace{.2cm}
+
+    Para responder a las queries, si el rango del nodo actual esta contenido en el rango de la query, devolvemos el minimo de ese rango. Si el rango del nodo actual esta fuera del rango de la query, lo ingoramos. Si el rango del nodo actual intersecta con el rango de la query, llamamos recursivamente a los hijos y devolvemos el minimo de los minimos de los hijos, esto toma $O(\log \ n)$ pues en cada nivel procesamos a lo mas 2 nodos (un rango es continuo) y la altura del arbol es $O(\log \ n)$. \vspace{.2cm}
 \end{quote}
