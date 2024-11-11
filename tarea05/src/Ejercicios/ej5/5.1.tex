@@ -1,5 +1,12 @@
 \textbf{De un algoritmo que con a lo más $n - 1$ comparaciones ordena $\Sigma_n$. Pruebe que su algoritmo es óptimo.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Tomando un representante}
 \begin{quote}
+    La idea de este algoritmo es simple, primero tomas uno al azar, por ejemplo el primero, y lo pones en una lista $L$. Comparas con el segundo el que sea menor lo pones al principio de $L$ (este es 0 y el mayor es un 1), podemos seguir con el mayor que sabemos que es un 1, lo comparamos con el tercero y si es menor lo ponemos atras del que tenemos y si es mayor adelante (en este caso el 1 va al final de $L$). Así sucesivamente hasta que termines de comparar todos los elementos.\vspace{.2cm}
+
+    Como el algoritmo compara cada elemento con los que ya están en la lista, el número de comparaciones es a lo más $n - 1$ (el primero ocupa al segundo para compararse).\vspace{.2cm}
+
+    
 \end{quote}
+
+\newpage
