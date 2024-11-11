@@ -1,5 +1,18 @@
 \textbf{Pruebe que el segundo elemento más chico de una lista de $n$ elementos puede encontrarse con $n + \lceil \ln n \rceil - 2$ comparaciones.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Usando arbol de torneo}
 \begin{quote}
+    Lo primero que nos va a resultar muy útil es conseguir el arbol de torneo de la lista, este arbol es un arbol binario completo donde cada nodo interno es el ganador de sus dos hijos, es decir, el nodo con el valor mas chico de sus dos hijos. \vspace{.2cm}
+    
+    Entonces, comenzamos metiendo cada valor de la lista en una hoja del arbol, luego, en cada nivel del arbol, vamos a comparar los nodos de izquierda a derecha y vamos a ir subiendo el nodo mas chico, al final, el nodo raíz será el elemento mas chico de la lista. Como en el primer nivel tenemos n nodos hacemos $n/2$ comparaciones, en el siguiente haremos $n/4$ comparaciones, y así sucesivamente, entonces la cantidad de comparaciones que hacemos es $n - 1$ (cuando $n/2^k=1$ no hay comparación). \vspace{.2cm}
+
+    Ahora tenemos una EDD con el mas chico en su raiz y como ya notamos en la tarea 1 (o 2 xd) es que para encontrar el segundo elemento mas chico basta con checar alguno que haya perdido directamente contra el mas chico, esto es porque si un nodo perdió contra el mas chico, entonces no puede ser el mas chico, y a su vez si es el segundo mas chico le gano a todos los demás. \vspace{.2cm}
+
+    Sabemos que el mas chico subio de ser hoja a ser la raiz y nuestro árbol tiene altura $\lceil \log_2 \ n \rceil$, (la altura es approx $\log_2 \ n$ por ser balanceado pero como debe ser un número entero entonces se usa la función techo), por lo que por los 2 puntos anteriores sabemos que el segundo mas chico esta en un conjunto de a lo mas $\lceil \log_2 \ n \rceil-1$ nodos (sabemos que la raiz no es el segundo mas chico). \vspace{.2cm}
+
+    Finalmente podemos usar otro árbol con los elementos que queremos comparar para encontrar el segundo mas chico, teniendo como base los $\lceil \log_2 \ n \rceil-1$ nodos que sabemos que pueden ser el segundo mas chico, repetimos la misma idea de arbol de torneo y encontramos el segundo mas chico en a lo mas $\lceil \log_2 \ n \rceil-2$ comparaciones. \vspace{.2cm}
+
+    Finalmente encontramos el segundo mas chico en $n + \lceil \log_2 \ n \rceil - 3$ comparaciones.
 \end{quote}
+
+\newpage

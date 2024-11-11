@@ -1,5 +1,21 @@
 \textbf{Encuentre la parentización óptima para multiplicar seis matrices de dimensiones $4 \times 9$, $9 \times 4$, $4 \times 10$, $10 \times 2$, $2 \times 5$, $5 \times 6$.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Primero que nada voy a ponerle nombres a las matrices con las que estoy trabajando para que sea más fácil referirse a ellas. Así que las matrices serán:
+
+\begin{align*}
+    A1 & : 4 \times 9 \\
+    A2 & : 9 \times 4 \\
+    A3 & : 4 \times 10 \\
+    A4 & : 10 \times 2 \\
+    A5 & : 2 \times 5 \\
+    A6 & : 5 \times 6   
+\end{align*}
+
+\textcolor{bibi}{Usando DP}
 \begin{quote}
+    Voy a crear una matriz $dp$ de tamaño $6 \times 6$ donde $dp[i][j]$ va a ser el costo mínimo de multiplicar las matrices $A_i \times A_{i+1} \times \ldots \times A_j$. \vspace{.2cm}
+
+    Además, voy a crear una matriz $s$ de tamaño $6 \times 6$ donde $s[i][j]$ va a ser el índice de la matriz que se va a multiplicar en la última multiplicación de la cadena $A_i \times A_{i+1} \times \ldots \times A_j$. \vspace{.2cm}
 \end{quote}
+
+\newpage
