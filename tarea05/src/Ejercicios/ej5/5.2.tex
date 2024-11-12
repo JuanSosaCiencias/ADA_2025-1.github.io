@@ -1,5 +1,74 @@
 \textbf{Encuentre un algoritmo que utilizando en promedio $\frac{2n}{3}$ comparaciones ordena $\Sigma_n$ (esto bajo la suposición que los elementos de $\Sigma_n$ tienen la misma probabilidad de ser 0 ó 1). Demuestre que su algoritmo es óptimo.}\vspace{.2cm}
 
-\textcolor{bibi}{}
-\begin{quote}1
+Algo vital para resaltar en este caso es que si tenemos información extra por lo que no significa que el algoritmo anterior no sea optimo. \vspace{.2cm}
+
+\textcolor{bibi}{Usando arboles}
+\begin{quote}
+    La idea de este algoritmo va a ser agrupar por tipos cuando sean iguales y cuando no, ya tenemos un orden sobre esos grupos que sean diferentes; es importante destacar que en el caso que fueran todos de un solo tipo la complejidad sería $n - 1$ comparaciones. \vspace{.2cm}
+
+    Vamos a comenzar por dividir nuestra serie de elementos en hojas de un arbol, adicionalmente a el valor que tengan (que desconocemos) vamos a agregarle un valor a estos nodos que indiquen de que tamaño es su grupo; ahora comparamos por pares (si nos sobra uno podemos compararlo en el siguiente nivel). Tenemos 4 casos posibles: \vspace{.2cm}
+
+    \begin{enumerate}
+        \item \textbf{$x=y$} Ambos son iguales (dos 1), en este caso creamos un nodo padre con el valor de uno de los 2 y el tamaño de su grupo es la suma del tamaño de ambos grupos (en este caso 2). \vspace{.1cm}
+        \item \textbf{$x<y$} En este caso ya sabemos quienes son 1's y quienes son 0's, por lo que los contamos dependiendo del tamaño de su grupo y estos ya no juegan (sabemos que hay un 1 y un 0). \vspace{.1cm}
+        \item \textbf{$x>y$} En este caso ya sabemos quienes son 1's y quienes son 0's, por lo que los contamos dependiendo del tamaño de su grupo y estos ya no juegan (sabemos que hay un 1 y un 0). \vspace{.1cm}
+        \item \textbf{$x=y$} Ambos son iguales (dos 0), este caso es analogo al caso 1. \vspace{.2cm}
+    \end{enumerate}
+
+    Esto nos tomo $\mathbf{n/2}$ comparaciones, pero lo interesante aqui es que si todos los casos tienen la misma probabilidad (por la suposición del problema) entonces la mitad de los elementos ya estan ordenados y no los volvemos a comparar esto significa que en el siguiente nivel solo hay $(n/2)/2=n/4$ nodos (normalmente serían $n/2$ pero la mitad no sobrevive). \vspace{.2cm}
+
+    Podemos repetir un procedimiento similar en el siguiente nivel, este tiene $n/4$ nodos por lo que comparando por parejas nos toma $(n/4)/2 = \mathbf{n/8}$ comparaciones. Seguimos haciendo esto y por ejemplo el siguiente nivel tendra $(n/8)/2=n/16$ nodos y usara $(n/16)/2=\mathbf{n/32}$ comparaciones. \vspace{.2cm}  
+
+    Se sigue de este razonamiento que la cantidad de comparaciones se ve algo como esto: 
+    \begin{align*}
+        \frac{n}{2} + \frac{n}{4} + \frac{n}{8} + \cdots + 1 
+    \end{align*}
+
+    Esta es una progresión geométrica con razón de $\frac{1}{4}$ empezando por $\frac{n}{2}$, ademas en este caso cuando llegamos a la raiz mas bien no sabemos de que tipo es solo sabemos que todos sus elementos son del mismo tipo pero podrían ser 1's o 0's, por lo que ocupamos una comparación mas con alguno ya ordenado (si solo hay un tipo entonces ocupa $n-1$ comparaciones y esta trivialmente ordenado).
+    \begin{align*}
+        \frac{n/2}{1-1/4} = \frac{n/2}{3/4} = \frac{2n}{3}
+    \end{align*}
+
+    Hagamos un ejemplo grafico chico para ver como se ve esto: \vspace{.2cm}
+    \begin{figure}[H]
+        \centering
+        \resizebox{1\textwidth}{!}{%
+        \begin{circuitikz}
+        \tikzstyle{every node}=[font=\LARGE]
+        \draw  (3.75,7.75) circle (1cm) node {\LARGE 1,1} ;
+        \draw  (6.25,7.75) circle (1cm) node {\LARGE 0,1} ;
+        \draw  (8.75,7.75) circle (1cm) node {\LARGE 1,1} ;
+        \draw  (11.25,7.75) circle (1cm) node {\LARGE 1,1} ;
+        \draw  (13.75,7.75) circle (1cm) node {\LARGE 0,1} ;
+        \draw  (16.25,7.75) circle (1cm) node {\LARGE 0,1} ;
+        \draw  (18.75,7.75) circle (1cm) node {\LARGE 0,1} ;
+        \draw  (21.25,7.75) circle (1cm) node {\LARGE 1,1} ;
+        \node [font=\LARGE] at (12.25,5.5) {valor, tamaño de grupo};
+        \draw  (5,10.25) circle (1cm) node {\LARGE null} ;
+        \draw (3.75,8.75) to[short] (4.5,9.5);
+        \draw (6.25,8.75) to[short] (5.5,9.5);
+        \draw  (20,10.25) circle (1cm) node {\LARGE null} ;
+        \draw (18.75,8.75) to[short] (19.5,9.5);
+        \draw (21.25,8.75) to[short] (20.5,9.5);
+        \draw  (10,10.25) circle (1cm) node {\LARGE 1,2} ;
+        \draw (8.75,8.75) to[short] (9.5,9.5);
+        \draw (11.25,8.75) to[short] (10.5,9.5);
+        \draw  (15,10.25) circle (1cm) node {\LARGE 0,2} ;
+        \draw (13.75,8.75) to[short] (14.5,9.5);
+        \draw (16.25,8.75) to[short] (15.5,9.5);
+        \draw  (12.5,14) circle (1cm) node {\LARGE null} ;
+        \draw (10,11.25) to[short] (12,13.25);
+        \draw (15,11.25) to[short] (13,13.25);
+        \node [font=\LARGE] at (12.5,16) {\textbf{Final: [0,0,0,0,1,1,1,1]}};
+        \node [font=\LARGE] at (1.25,9.25) {Me da un 1 y un 0};
+        \node [font=\LARGE] at (17,12.5) {Me da dos 1 y dos 0};
+        \node [font=\LARGE] at (23.75,9.25) {Me da un 1 y un 0};
+        \end{circuitikz}
+        }%
+        \label{fig:ej5.2}
+    \end{figure}
+
+    En este caso tenemos 8 elementos, hacemos 4 comparaciones y ordenamos a 4; nos quedan 2 nodos vivos con lo que hacemos 1 comparación y tenemos 0 nodos vivos con lo que ya sabemos cuantos 1's y 0's hay. \vspace{.2cm}
+
+    Notemos que no hay un caso terrible, en cuanto no sean iguales podemos quitar a todos los elementos de ambos arboles y como ya mencionamos el peor caso seria si todos fueran iguales. \vspace{.2cm}
 \end{quote}
