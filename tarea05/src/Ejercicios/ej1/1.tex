@@ -10,7 +10,7 @@
 
     Sabemos que el mas chico subio de ser hoja a ser la raiz y nuestro árbol tiene altura $\lceil \log_2 \ n \rceil+1$, (la altura es approx $\log_2 \ 2n = \log_2 \ n +1 $ por ser balanceado con base n pero como debe ser un número entero entonces se usa la función techo), por lo que por los 2 puntos anteriores sabemos que el segundo mas chico esta en un conjunto de a lo mas $(\lceil \log_2 \ n \rceil+1) -1$ nodos (sabemos que la raiz no es el segundo mas chico). \vspace{.2cm}
 
-    Finalmente podemos usar otro árbol con los elementos que queremos comparar para encontrar el segundo mas chico, teniendo como base los $\lceil \log_2 \ n \rceil$ nodos que sabemos que pueden ser el segundo mas chico, repetimos la misma idea de arbol de torneo y encontramos el segundo mas chico en a lo mas $\lceil \log_2 \ n \rceil-1$ comparaciones. \vspace{.2cm}
+    Finalmente solo es buscar en este conjunto bajando y comparando o usando la logica de arriba, podemos usar otro árbol con los elementos que queremos comparar para encontrar el segundo mas chico, teniendo como base los $\lceil \log_2 \ n \rceil$ nodos que sabemos que pueden ser el segundo mas chico, encontramos el segundo mas chico en a lo mas $\lceil \log_2 \ n \rceil-1$ comparaciones. \vspace{.2cm}
 
-    Finalmente encontramos el segundo mas chico en $(n-1)+(\lceil \log_2 \ n \rceil-1) = n + \lceil \log_2 n \rceil - 2$ comparaciones.
+    Finalmente nuestro algoritmo tiene una complejidad de $(n-1)+(\lceil \log_2 \ n \rceil-1) = n + \lceil \log_2 n \rceil - 2$ comparaciones. \vspace{.2cm}
 \end{quote}
