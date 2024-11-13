@@ -1,5 +1,8 @@
 \textbf{Suppose we are given the minimum spanning tree $T$ of a given graph $G$ (with $n$ vertices and $m$ edges) and a new edge $e = (u - v)$ of weight $w$ that we will add to $G$. Give an efficient algorithm to find the minimum spanning tree of the graph $G + e$. Your algorithm should run in $O(n)$ time.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Algoritmo en $O(n)$ BFS:} 
 \begin{quote}
+    La idea intuitiva es checar si el nuevo arista $e$ es más pesado que una arista que este en el camino de $u$ a $v$ en el árbol $T$. Como es un arbol contiene exactamente $n-1$ aristas, agregar un vertice crea exactamente un ciclo en el árbol. Entonces podemos pensar el algoritmo por el siguiente proceso: \vspace{.2cm}
+
+    Comenzamos por buscar el camino de $u$ a $v$ en el árbol $T$. Como es un arbol usamos BFS y tarda $O(n)$ tiempo. Mientras buscamos este camino podemos guardar el arista más pesado en el camino. la vamos a llamar $e_{max}$. Ahora si $w < e_{max}$ podmeos simplemente remover $e_{max}$ y agregar $e$ al árbol $T$ para que siga siendo arbol y ahora tiene peso menor. Si $w \geq e_{max}$ quitamos $e$ y $T$ es el arbol original y ya era mínimo. \vspace{.2cm} 
 \end{quote}
