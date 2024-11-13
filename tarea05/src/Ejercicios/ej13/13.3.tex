@@ -1,5 +1,20 @@
 \textbf{Mejora el tiempo de ejecución de tu algoritmo a $\Theta(n)$}\vspace{.2cm}
 
-\textcolor{bibi}{}
+La verdad no estoy seguro de esta parte pero lo voy a intentar:
+
+\textcolor{bibi}{Usando K-select}
 \begin{quote}
+    La idea para esta variación de la solución empieza igual, tomamos y obtenemos la relación valor peso (densidad) para cada objeto. Pero en vez de ordenar completamente el arreglo usaremos selection k para considerar solo una parte del arreglo, una cosa importante en este algoritmo es que para mantener su complejidad en $O(n)$ voy a usar la mediana de medianas para seleccionar el pivote, esto me garantiza que el algoritmo no se vaya a $O(n^2)$. \vspace{.2cm}
+
+    Una vez tomando la mediana de medianas en $O(n)$ hacemos 3 particiones del arreglo, los elementos menores a la mediana, los iguales y los mayores; ahora calculamos la suma de los pesos de los elementos cuya densidad es mayor a la mediana, si esta suma es igual a la capacidad de la mochila entonces terminamos y nos podemos llevar solo a esos. \vspace{.2cm}
+
+    Si la suma es menor a la capacidad de la mochila, vamos calculando los pesos de los objetos cuya densidad es igual a la mediana y viendo si nos van cabiendo en la mochila hasta que se llene, si se llena acabamos. \vspace{.2cm}
+
+    Si aun no se llena, entonces calculamos la mediana de medianas para los menores y repetimos el proceso. \vspace{.2cm}
+
+    Otro caso que puede pasar es que la suma de los pesos de los objetos cuya densidad es mayor a la mediana sea mayor a la capacidad de la mochila, en este caso calculamos la mediana de medianas para los mayores y repetimos el proceso. \vspace{.2cm}
+
+    Si en algun paso estamos en una particion y solo cabe una fraccion de un objeto, entonces lo tomamos y terminamos. \vspace{.2cm}
+
+    Me parece que este algoritmo tiene una complejidad de $O(n)$, estamos haciendo $O(n)$ operaciones por paso y en cada paso reducimos el tamaño del arreglo a la mitad, la serie tiende a algo en $O(n)$.
 \end{quote}
