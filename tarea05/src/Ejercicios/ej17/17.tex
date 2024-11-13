@@ -1,5 +1,48 @@
-\textbf{Consider the following data compression technique. We have a table of $m$ text strings, each at most $k$ in length. We want to encode a data string $D$ of length $n$ using as few text strings as possible. For example, if our table contains $(a,ba,abab,b)$ and the data string is $bababbaababa$, the best way to encode it is $(b,abab,ba,abab,a)$ a total of five code words. Give an $O(nmk)$ algorithm to find the length of the best encoding. You may assume that every string has at least one encoding in terms of the table.}\vspace{.2cm}
+\textbf{Consider the following data compression technique. We have a table of $m$ text strings, each at most $k$ in length. We want to encode a data string $D$ of length $n$ using as few text strings as possible. For example, if our table contains $(a,a,abab,b)$ and the data string is $bababbaababa$, the best way to encode it is $(b,abab,ba,abab,a)$ a total of five code words. Give an $O(nmk)$ algorithm to find the length of the best encoding. You may assume that every string has at least one encoding in terms of the table.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Un detalle muy importante en esta parte es que no nos piden regresar el código, sino la longitud del mejor código. Por lo tanto, no es necesario guardar los códigos, sino simplemente la longitud de los mismos. \vspace{.2cm}
+
+\textcolor{bibi}{Usando DP}
 \begin{quote}
+    Comenzamos definiendo un arreglo $dp$ de tamaño $n+1$ donde $dp[i]$ será el minimo numero de palabras necesarias para codificar los primeros $i$ caracteres de $D$. Inicializamos $dp[0] = 0$ (0 palabras para codificar la cadena vacia). \vspace{.2cm}
+    
+    Ahora inicia lo interesante, para cada posicion $i$ de $D$ y para cada palabra en la tabla digamos $s$ vamos a checar si $s$ es sufijo de $D$ de 0 a $i$ es importante notar que la longitud de las palabras es a lo mas $k$, si $s$ es sufijo entonces sea $j = i - |s|$ y updateamos el arreglo de la siguiente manera: $$dp[i]=min(dp[i],dp[j]+1)$$ Lo que estamos intentando hacer aqui basicamente es codificar los primeros j caracteres de $D$ y luego agregar la palabra $s$ para codificar los primeros $i$ caracteres de $D$ para ver si nos da menos palabras que codificar los primeros $i$ caracteres de $D$ directamente. Finalmente la respuesta sera $dp[n]$. \vspace{.2cm}
+
+    Ademas de esto nuestra funcion de recurencia le agregamos valores por defecto para poder usar la funcion min, $dp[i]=\infty \ ;  \forall i>0$ \vspace{.2cm}
+
+    \textbf{Complejidad:} La complejidad de este algoritmo es $O(nmk)$ ya que tenemos que recorrer cada posicion de $D$ (n) y para cada posicion tenemos que recorrer cada palabra de la tabla (m) y para cada palabra tenemos que recorrer la palabra para ver si es sufijo de $D$ (k).
+
+    Para nuestro ejemplo, corri un codigo en python y obtuve la siguiente los $dp$ en cada iteracion:
+
+    $$
+    \begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        0 & 1 & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & \infty & \infty & \infty & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & \infty & \infty & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & \infty & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & 4 & \infty & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & 4 & 5 & \infty & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & 4 & 5 & 5 & \infty & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & 4 & 5 & 5 & 4 & \infty \\
+        \hline
+        0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & 4 & 5 & 5 & 4 & 5 \\
+        \hline
+    \end{array}
+    $$ \vspace{.2cm}
+
+    Donde la respuesta es 5, nos da 12 iteraciones porque la longitud de $D$ es 12, en cada iteracion tuvo que checar toda la tabla de palabras y para cada palabra tuvo que recorrer la palabra para ver si era sufijo de $D$. \vspace{.2cm}
 \end{quote}
