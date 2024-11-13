@@ -1,5 +1,43 @@
 \textbf{Professor Adams has two children who, unfortunately, dislike each other. The problem is so severe that not only do they refuse to walk to school together, but in fact each one refuses to walk on any block that the other child has stepped on that day. The children have no problem with their paths crossing at a corner. Fortunately both the professor’s house and the school are on corners, but beyond that he is not sure if it is going to be possible to send both of his children to the same school. The professor has a map of his town. Show how to formulate the problem of determining if both his children can go to the same school as a maximum-flow problem.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Este problema se asemeja bastante al problema 6 de la tarea anterior asi que voy a usar la misma idea y corregir mis errores. \vspace{.2cm}
+
+\textcolor{bibi}{Modelando el problema como uno de flujos}
 \begin{quote}
+    Comenzamos por modelar las intersecciones de las calles como nodos, debido a que pueden pasar ambos hijos no tienen restricciones, además, la casa es nodo fuente y la escuela es nodo sumidero.  \vspace{.2cm} 
+
+    Ahora agregaremos las aceras como aristas, pero vamos a checar esto, porque nos gustaría que se pudieran usar en ambos sentidos pero solo por uno de los 2 hijos, es asi que vamos a modelar las aristas de la siguiente manera: \vspace{.2cm}
+    \begin{center}
+        \begin{figure}[H]
+            \centering
+            \resizebox{.3\textwidth}{!}{%
+            \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \draw  (5,12.75) circle (1.25cm) node {\LARGE a} ;
+            \draw  (10,12.75) circle (1.25cm) node {\LARGE b} ;
+            \draw [<->, >=Stealth] (6.25,12.75) -- (8.75,12.75)node[pos=0.5, fill=white]{1};
+            \draw  (3.75,4) circle (1.25cm) node {\LARGE a} ;
+            \draw  (11.25,4) circle (1.25cm) node {\LARGE b} ;
+            \draw  (7.5,5.25) circle (1.25cm) node {\LARGE auxO} ;
+            \draw  (7.5,9) circle (1.25cm) node {\LARGE auxI} ;
+            \draw [->, >=Stealth] (3.75,5.25) -- (6.25,9)node[pos=0.5, fill=white]{1};
+            \draw [->, >=Stealth] (11.25,5.25) -- (8.75,9)node[pos=0.5, fill=white]{1};
+            \draw [->, >=Stealth] (7.5,7.75) -- (7.5,6.5)node[pos=0.5, fill=white]{1};
+            \draw [->, >=Stealth] (6.25,5) -- (5,4)node[pos=0.5, fill=white]{1};
+            \draw [->, >=Stealth] (8.75,5.25) -- (10,4)node[pos=0.5, fill=white]{1};
+            \end{circuitikz}
+            }%
+            \label{fig:ej12}
+        \end{figure}
+    \end{center}
+
+    Es decir modelare la calle que conecta las esquinas a,b que inicialmente era bidireccional de la siguiente manera: agregamos 2 nodos, digamos calleI y calleO, a en vez de conectarse con b se conectara a calleI al igual que b, y calleI se conectara con calleO, y calleO con a y b, todas utilizaran una capacidad de 1 para que solo puedan ser usadas por un hijo 1 vez. Esto permite que exista una trayectoria de "a" a "b" y de "b" a "a" pero como solo existe una arista calleI - calleO entonces no se pueden usar ambos sentidos al mismo tiempo. \vspace{.2cm}
+
+    Es evidente que esto no genera nuevas trayectorias pues solo se esta dividiendo la arista en 2, no hay conexiones nuevas, por lo que el flujo máximo en este grafo es el mismo que en el original. \vspace{.2cm}
+
+    Ahora tenemos un grafo dirigido con capacidades en las aristas, los nodos fuentes y sumidero deben tener al menos 2 aristas salientes y entrantes respectivamente para que el flujo pueda pasar por ellos.  \vspace{.2cm}
+
+    Para decidir si es posible que ambos hijos lleguen a la escuela sin violar restricciones, simplemente calculamos el flujo máximo en el grafo, si el flujo máximo es 2 entonces ambos hijos pueden llegar a la escuela sin problemas, si es 1 entonces solo uno de ellos puede llegar a la escuela, si es 0 entonces ninguno puede llegar a la escuela. \vspace{.2cm}
+
+    Para encontrar el flujo máximo podemos usar el algoritmo de Ford-Fulkerson, Edmonds-Karp o cualquier otro algoritmo de flujo máximo.  \vspace{.2cm}
 \end{quote}
