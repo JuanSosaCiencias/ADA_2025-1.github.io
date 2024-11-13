@@ -1,5 +1,18 @@
 \textbf{Prueba que tu algoritmo obtiene la solución correcta.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+\textcolor{bibi}{Por contradicción}
 \begin{quote}
+    Supongamos que el algoritmo no obtiene la solución correcta. Sea $S$ la solución y sea $S'$ la solución que obtiene el algoritmo. Entonces $S > S'$, ahora sabemos que $S'$ se puede escribir asi:
+    \begin{equation*}
+        S' = \sum_{i=1}^{n} x_i v_i
+    \end{equation*}
+
+    Donde $x_i$ es la fracción de $i$-ésimo tesoro que se lleva en la mochila. Ademas, sabemos que $S$ se puede escribir asi:
+    \begin{equation*}
+        S = \sum_{i=1}^{n} y_i v_i
+    \end{equation*}
+
+    Es decir debe existir uno o mas objetos que nuestro algoritmo no tomo ya sea parcial o totalmente y que si se hubieran tomado la solución hubiera sido mayor. Pero como tenemos que minimizar la cantidad de peso que llevamos a la mochila por valor entonces esto significa que la densidad del objeto que no se tomo es mayor a la densidad de los objetos que si se tomaron. Sin embargo, esto contradice la selección de objetos que hace nuestro algoritmo ya que siempre toma el objeto con mayor densidad. Por lo tanto, nuestro algoritmo obtiene la solución correcta. \vspace{.2cm}
+
+    Una manera mas intuitiva de verlo es que querermos maximizar la densidad dentro de la mochila, entonces ir metiendo los objetos mas densos que podamos es la mejor opción, otra manera de decirlo es que una solución optima a un subproblema de este problema tambien es optima para el problema original. \vspace{.2cm}
 \end{quote}

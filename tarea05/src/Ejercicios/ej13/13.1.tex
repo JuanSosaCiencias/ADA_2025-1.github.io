@@ -1,5 +1,14 @@
-\textbf{Describe un algoritmo voraz de tiempo $\Theta(n log n)$ que resuelve este problema.}\vspace{.2cm}
+\textbf{Describe un algoritmo voraz de tiempo $\Theta(n \ log \ n)$ que resuelve este problema.}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Este se parece bastante al problema de la mochila que vimos con la profesora asi que voy a utilizar esa idea. \vspace{.2cm}
+
+\textcolor{bibi}{Algoritmo greedy }
 \begin{quote}
+    Como podemos llevarnos cuanto queramos de cada tesoro mientras no sobrepase la capacidad de nuestra mochila, nos interesa comenzar por calcular la densidad de cada tesoro, es decir, $\frac{v_i}{w_i}$ para cada $i$ esto toma $\Theta(n)$. \vspace{.2cm}
+
+    Luego ordenamos los tesoros de acuerdo a su densidad, de forma descendiente usando merge sort, esto toma $\Theta(n \ log \ n)$, esto es escencial para utilizar el algoritmo greedy. \vspace{.2cm}
+
+    Ahora, mientras la mochila tenga capacidad y existan tesoros por tomar, tomamos la mayor cantidad de la fracción de un tesoro que podamos, es decir, si el peso del tesoro $i$ es $w_i$ y cabe en la mochila (es decir peso restante $> w_i$) tomamos el tesoro completo, si no, tomamos la fracción que cabe, esto toma $\Theta(n)$. \vspace{.2cm}
+
+    Finalmente, el algoritmo toma $\Theta(n \ log \ n)$, sabemos que es exactamente $\Theta$ $(n \ log \ n)$ porque el tiempo de ordenar los tesoros usando merge sort es el que domina el tiempo total del algoritmo. \vspace{.2cm}
 \end{quote}
