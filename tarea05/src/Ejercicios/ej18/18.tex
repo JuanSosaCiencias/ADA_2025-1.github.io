@@ -1,5 +1,40 @@
 \textbf{La compañía \textit{Monsters, Inc} preparó para el día de hoy una fila de $n \geq 2$ puertas para abrir y recolectar los gritos de los niños con el fin de abastecer de energía a la Monstropolis. Con el propósito de salir temprano los monstruos determinaron abrir todas las puertas de jalón y así terminar lo más rápido posible, por lo que asignaron a Sullivan a recorrer toda la fila y abrir todas las puertas. Al ver el desastre que esto causaría, Mike Wazowski recorrió la fila y cerró todas las puertas de manera alternada iniciando en la puerta 2. Sin embargo, ¡Quedaron $\frac{n}{2}$ puertas abiertas!. Por lo que el resto de los monstruos decidieron ayudar de la siguiente manera: el monstruo con el recorrido i-ésimo, cambiaría el estado de cada i-ésima puerta iniciando desde la puerta i. Después de hacer este proceso $n$ veces, ¿Quedan puertas abiertas? ¿Cuántas y cuáles son si es el caso?}\vspace{.2cm}
 
-\textcolor{bibi}{}
+Este problema es mas de teoría de números aunque tambien se puede programar para ver casos específicos.
+
+\textcolor{bibi}{Usando teoria de números}
 \begin{quote}
+    Para empezar hice un ejemplo a mano para darme una idea de como se comportaba el problema. En este caso $n=26$.
+    \begin{align*}
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] \\
+    2 \ [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1] \\
+    3 \ [0,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,1] \\
+    4 \ [0,1,1,0,0,0,0,0,1,1,0,1,0,1,1,0,0,0,0,0,1,1,0,1,0,1] \\
+    5 \ [0,1,1,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,1,1,1,0,1,1,1] \\
+    6 \ [0,1,1,0,1,1,0,0,1,0,0,0,0,1,0,0,0,1,0,1,1,1,0,0,1,1] \\
+    7 \ [0,1,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,1] \\
+    8 \ [0,1,1,0,1,1,1,1,1,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,1,1] \\
+    9 \ [0,1,1,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,1,1] \\
+    10 \ [0,1,1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,1,1,1] \\
+    11 \ [0,1,1,0,1,1,1,1,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1] \\
+    12 \ [0,1,1,0,1,1,1,1,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,1] \\
+    13 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1,0] \\
+    14 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,1,0] \\
+    15 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0] \\
+    16 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0] \\
+    17 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0] \\
+    18 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,1,0] \\
+    19 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,1,0] \\
+    20 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,1,0] \\
+    21 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,1,0] \\
+    22 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0] \\
+    23 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,0] \\
+    24 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0] \\
+    25 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0] \\
+    26 \ [0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1] \\
+    \end{align*}
+
+    En este caso, las puertas que quedaron abiertas fueron las puertas 1, 4, 9, 16 y 25. Que casualmente son los cuadrados perfectos menores a 26. Esto sucede porque un número $n$ tiene un número impar de divisores si y solo si es un cuadrado perfecto. Por ejemplo el 25 tiene como divisores a 1, 5 y 25. \vspace{.2cm}
+
+    Entonces las puertas que quedarán abiertas serán las puertas $i^2$ con $i \leq \sqrt{n}$. Por lo que el número de puertas abiertas será $\lfloor \sqrt{n} \rfloor$, esta función nos da el entero más cercano hacia abajo.
 \end{quote}
